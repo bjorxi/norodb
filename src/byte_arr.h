@@ -2,6 +2,7 @@
 #define NORO_DB_BYTE_ARR_H_
 
 #include <stddef.h>
+#include <string>
 
 
 namespace norodb {
