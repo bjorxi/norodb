@@ -6,6 +6,8 @@
 #include "db_options.h"
 #include "byte_arr.h"
 #include "status.h"
+#include "db_directory.h"
+#include "row.h"
 
 namespace norodb {
 
