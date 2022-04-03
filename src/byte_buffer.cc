@@ -12,8 +12,19 @@ ByteBuffer::ByteBuffer(uint32_t size) {
   buff = std::vector<uint8_t>(size);
 }
 
+uint8_t ByteBuffer::get() {
+  // TODO check if rpos >= size
+  std::cout << "ByteBuffer::get::rpos" << rpos << std::endl;
+  uint8_t val = buff[rpos];
+  std::cout << "ByteBuffer::get::val " << val << std::endl;
+
+  rpos+=1;
+  return static_cast<int>(val);
+}
 
 uint32_t ByteBuffer::getInt() {
+  // TODO check if rpos >= size
+  std::cout << "ByteBuffer::getInt::rpos" << rpos << std::endl;
   uint32_t val = (static_cast<uint32_t>(buff[rpos])) |
                  (static_cast<uint32_t>(buff[rpos+1]) << 8) |
                  (static_cast<uint32_t>(buff[rpos+2]) << 16) |
@@ -25,6 +36,8 @@ uint32_t ByteBuffer::getInt() {
 }
 
 uint64_t ByteBuffer::getLong() {
+  // TODO check if rpos >= size
+    std::cout << "ByteBuffer::getLong::rpos" << rpos << std::endl;
   uint64_t val = (static_cast<uint64_t>(buff[rpos+0])) |
                  (static_cast<uint64_t>(buff[rpos+1]) << 8) |
                  (static_cast<uint64_t>(buff[rpos+2]) << 16) |
@@ -34,12 +47,27 @@ uint64_t ByteBuffer::getLong() {
                  (static_cast<uint64_t>(buff[rpos+6]) << 48) |
                  (static_cast<uint64_t>(buff[rpos+7]) << 56);
 
-  wpos += LONG_SIZE;
+  rpos += LONG_SIZE;
 
   return val;
 }
 
+void ByteBuffer::put(uint8_t b) {
+  std::cout << "ByteBuffer::put::wpos" << wpos << std::endl;
+  if (wpos + 1 > size()) {
+    grow();
+  }
+
+  std::cout << "ByteBuffer::put::val " << static_cast<uint8_t>(b) << std::endl;
+
+
+  buff[wpos] = b;
+  wpos += 1;
+}
+
 void ByteBuffer::putInt(uint32_t value) {
+
+  std::cout << "ByteBuffer::put::wpos" << wpos << std::endl;
   if (wpos + INT_SIZE > size()) {
     grow();
   }
@@ -53,6 +81,8 @@ void ByteBuffer::putInt(uint32_t value) {
 }
 
 void ByteBuffer::putLong(uint64_t value) {
+
+  std::cout << "ByteBuffer::put::wpos" << wpos << std::endl;
   if (wpos + LONG_SIZE > size()) {
     grow();
   }

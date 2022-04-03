@@ -20,7 +20,8 @@ class ByteBuffer {
     ByteBuffer(uint32_t size);
 
     void clear() {wpos=0; rpos=0; buff.clear();};
-    uint32_t size() {return buff.size();};
+    uint32_t size() {return wpos;};
+    uint32_t capacity() {return buff.size();};
     void grow() {buff.resize(buff.size()*2);};
 
     uint8_t get();
