@@ -14,16 +14,21 @@ int main() {
   //
   // db.put(key, val);
 
-  // norodb::RowHeader rh(1,2,3,4,5);
-  // auto buffer = rh.serialize();
-  // std::cout << "Buffer size is " << buffer->size() << std::endl;
-  //
-  // std::cout << "Done!" << std::endl;
-  //
+  norodb::RowHeader rh(1,2,3,4,5);
+    std::cout << rh.to_string() << std::endl;
 
-  norodb::ByteBuffer bb;
-  bb.putInt(23);
-  bb.putInt(42);
-  std::cout << "Val is: " << bb.getInt() << std::endl;
-  std::cout << "Val is: " << bb.getInt() << std::endl;
+  auto buffer = rh.serialize();
+  std::cout << "Buffer size is " << buffer->size() << std::endl;
+
+  auto new_rh = norodb::RowHeader::deserialize(*buffer);
+  std::cout << new_rh->to_string() << std::endl;
+
+  std::cout << "Done!" << std::endl;
+
+
+  // norodb::ByteBuffer bb;
+  // bb.putInt(23);
+  // bb.putInt(42);
+  // std::cout << "Val is: " << bb.getInt() << std::endl;
+  // std::cout << "Val is: " << bb.getInt() << std::endl;
 }
