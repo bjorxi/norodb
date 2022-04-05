@@ -20,20 +20,19 @@ std::string RowHeader::to_string() {
 // Serializes a header to a bytearray so it can be written to a  file
 ByteBuffer* RowHeader::serialize() {
   auto buff = new ByteBuffer();
-  buff->putLong(check_sum);
+  buff->put_long(check_sum);
   buff->put(version);
   buff->put(key_size);
-  buff->putInt(val_size);
-  buff->putLong(seq_num);
-  buff->putInt(row_size);
+  buff->put_int(val_size);
+  buff->put_long(seq_num);
 
   return buff;
 }
 
 // Recreates a header from a byte array
 RowHeader* RowHeader::deserialize(ByteBuffer& buff) {
-  return new RowHeader(buff.getLong(), buff.get(), buff.get(),
-                       buff.getInt(), buff.getLong());
+  return new RowHeader(buff.get_long(), buff.get(), buff.get(),
+                       buff.get_int(), buff.get_long());
 }
 
 

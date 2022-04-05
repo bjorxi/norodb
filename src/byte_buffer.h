@@ -26,37 +26,37 @@ class ByteBuffer {
 
     uint8_t get();
     uint8_t get(uint32_t index);
-    void getBytes(uint8_t* buf, uint32_t len);
-    char getChar();
-    char getChar(uint32_t index); // Absolute
-    double getDouble();
-    double getDouble(uint32_t index);
-    float getFloat();
-    float getFloat(uint32_t index);
-    uint32_t getInt();
-    uint32_t getInt(uint32_t index);
-    uint64_t getLong();
-    uint64_t getLong(uint32_t index);
-    uint16_t getShort();
-    uint16_t getShort(uint32_t index);
+    void get_bytes(uint8_t* buf, uint32_t len);
+    char get_char();
+    char get_char(uint32_t index); // Absolute
+    double get_double();
+    double get_double(uint32_t index);
+    float get_dloat();
+    float get_float(uint32_t index);
+    uint32_t get_int();
+    uint32_t get_int(uint32_t index);
+    uint64_t get_long();
+    uint64_t get_long(uint32_t index);
+    uint16_t get_short();
+    uint16_t get_short(uint32_t index);
 
     void put(ByteBuffer* src);
     void put(uint8_t b);
     void put(uint8_t b, uint32_t index);
-    void putBytes(uint8_t* b, uint32_t len);
-    void putBytes(uint8_t* b, uint32_t len, uint32_t index);
-    void putChar(char value);
-    void putChar(char value, uint32_t index);
-    void putDouble(double value);
-    void putDouble(double value, uint32_t index);
-    void putFloat(float value);
-    void putFloat(float value, uint32_t index);
-    void putInt(uint32_t value);
-    void putInt(uint32_t value, uint32_t index);
-    void putLong(uint64_t value);
-    void putLong(uint64_t value, uint32_t index);
-    void putShort(uint16_t value);
-    void putShort(uint16_t value, uint32_t index);
+    void put_bytes(uint8_t* b, uint32_t len);
+    void put_bytes(uint8_t* b, uint32_t len, uint32_t index);
+    void put_char(char value);
+    void put_char(char value, uint32_t index);
+    void put_double(double value);
+    void put_double(double value, uint32_t index);
+    void put_float(float value);
+    void put_float(float value, uint32_t index);
+    void put_int(uint32_t value);
+    void put_int(uint32_t value, uint32_t index);
+    void put_long(uint64_t value);
+    void put_long(uint64_t value, uint32_t index);
+    void put_short(uint16_t value);
+    void put_short(uint16_t value, uint32_t index);
 };
 
 } // namespace norodb

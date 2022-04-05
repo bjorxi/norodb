@@ -22,7 +22,7 @@ uint8_t ByteBuffer::get() {
   return static_cast<int>(val);
 }
 
-uint32_t ByteBuffer::getInt() {
+uint32_t ByteBuffer::get_int() {
   // TODO check if rpos >= size
   std::cout << "ByteBuffer::getInt::rpos" << rpos << std::endl;
   uint32_t val = (static_cast<uint32_t>(buff[rpos])) |
@@ -35,9 +35,8 @@ uint32_t ByteBuffer::getInt() {
   return val;
 }
 
-uint64_t ByteBuffer::getLong() {
+uint64_t ByteBuffer::get_long() {
   // TODO check if rpos >= size
-    std::cout << "ByteBuffer::getLong::rpos" << rpos << std::endl;
   uint64_t val = (static_cast<uint64_t>(buff[rpos+0])) |
                  (static_cast<uint64_t>(buff[rpos+1]) << 8) |
                  (static_cast<uint64_t>(buff[rpos+2]) << 16) |
@@ -53,21 +52,15 @@ uint64_t ByteBuffer::getLong() {
 }
 
 void ByteBuffer::put(uint8_t b) {
-  std::cout << "ByteBuffer::put::wpos" << wpos << std::endl;
   if (wpos + 1 > size()) {
     grow();
   }
-
-  std::cout << "ByteBuffer::put::val " << static_cast<uint8_t>(b) << std::endl;
-
 
   buff[wpos] = b;
   wpos += 1;
 }
 
-void ByteBuffer::putInt(uint32_t value) {
-
-  std::cout << "ByteBuffer::put::wpos" << wpos << std::endl;
+void ByteBuffer::put_int(uint32_t value) {
   if (wpos + INT_SIZE > size()) {
     grow();
   }
@@ -80,7 +73,7 @@ void ByteBuffer::putInt(uint32_t value) {
   wpos += INT_SIZE;
 }
 
-void ByteBuffer::putLong(uint64_t value) {
+void ByteBuffer::put_long(uint64_t value) {
 
   std::cout << "ByteBuffer::put::wpos" << wpos << std::endl;
   if (wpos + LONG_SIZE > size()) {
