@@ -31,7 +31,7 @@ class ByteBuffer {
     char get_char(uint32_t index); // Absolute
     double get_double();
     double get_double(uint32_t index);
-    float get_dloat();
+    float get_float();
     float get_float(uint32_t index);
     uint32_t get_int();
     uint32_t get_int(uint32_t index);
