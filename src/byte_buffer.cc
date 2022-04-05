@@ -1,5 +1,7 @@
-#include "byte_buffer.h"
 #include <iostream>
+#include <sstream>
+
+#include "byte_buffer.h"
 
 namespace norodb {
 
@@ -7,24 +9,44 @@ ByteBuffer::ByteBuffer() {
   buff = std::vector<uint8_t>(DEFAULT_CAPACITY);
 }
 
-
 ByteBuffer::ByteBuffer(uint32_t size) {
   buff = std::vector<uint8_t>(size);
 }
 
+ByteBuffer::ByteBuffer(std::string src) {
+  buff = std::vector<uint8_t>(DEFAULT_CAPACITY);
+  for (auto it = src.cbegin() ; it != src.cend(); ++it) {
+    put(*it);
+  }
+}
+
+std::string ByteBuffer::to_string() {
+  std::stringstream s;
+
+  for (int i = 0; i < wpos; i++) {
+    s << get(i);
+  }
+
+  return s.str();
+}
+
 uint8_t ByteBuffer::get() {
   // TODO check if rpos >= size
-  std::cout << "ByteBuffer::get::rpos" << rpos << std::endl;
   uint8_t val = buff[rpos];
-  std::cout << "ByteBuffer::get::val " << val << std::endl;
 
   rpos+=1;
   return static_cast<int>(val);
 }
 
+uint8_t ByteBuffer::get(uint32_t pos) {
+  // TODO check if pos >= size
+  uint8_t val = buff[pos];
+
+  return static_cast<int>(val);
+}
+
 uint32_t ByteBuffer::get_int() {
   // TODO check if rpos >= size
-  std::cout << "ByteBuffer::getInt::rpos" << rpos << std::endl;
   uint32_t val = (static_cast<uint32_t>(buff[rpos])) |
                  (static_cast<uint32_t>(buff[rpos+1]) << 8) |
                  (static_cast<uint32_t>(buff[rpos+2]) << 16) |
@@ -75,7 +97,6 @@ void ByteBuffer::put_int(uint32_t value) {
 
 void ByteBuffer::put_long(uint64_t value) {
 
-  std::cout << "ByteBuffer::put::wpos" << wpos << std::endl;
   if (wpos + LONG_SIZE > size()) {
     grow();
   }
@@ -90,6 +111,16 @@ void ByteBuffer::put_long(uint64_t value) {
   buff[wpos+7] = static_cast<uint8_t>(value >> 56);
 
   wpos += LONG_SIZE;
+}
+
+void ByteBuffer::put(ByteBuffer* src) {
+  if (wpos + src->size() > size()) {
+    grow(size()*2 + src->size());
+  }
+
+  for (int i = 0; i < src->size(); i++) {
+    buff[wpos+i] = src->get(i);
+  }
 }
 
 } // namespace norodb
