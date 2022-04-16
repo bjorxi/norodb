@@ -34,7 +34,7 @@ class RowHeader {
   uint64_t seq_num;
 
   public:
-    RowHeader(uint64_t check_sum, uint8_t _version, uint8_t _key_size, uint32_t val_size, uint64_t seq_num) :
+    RowHeader(uint64_t check_sum, uint8_t version, uint8_t key_size, uint32_t val_size, uint64_t seq_num) :
       check_sum(check_sum), version(version), key_size(key_size), val_size(val_size),
       seq_num(seq_num) {};
     ByteBuffer* serialize();

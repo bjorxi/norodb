@@ -39,7 +39,7 @@ RowHeader* RowHeader::deserialize(ByteBuffer& buff) {
 Row::Row(ByteBuffer* key, ByteBuffer* val) {
   this->key = key;
   this->val = val;
-  header = new RowHeader(0, 0, 0, 0, 0);
+  header = new RowHeader(0, 0, key->size(), val->size(), 0);
 }
 
 
