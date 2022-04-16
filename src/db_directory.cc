@@ -6,16 +6,30 @@ namespace norodb {
 
 DBDirectory::DBDirectory(const std::string& p) {
   if (p.size() > 0) {
-    path = p;
+    db_dir = fs::path(p);
   } else {
-    path = "norodb";
+    db_dir = fs::path("norodb");
   }
+
+  std::cout << "DBDirecotry::data_files_dir: " << data_files_dir << std::endl;
+  data_files_dir = db_dir / "data";
+  std::cout << "DBDirecotry::data_files_dir: " << data_files_dir << std::endl;
+  index_files_dir = db_dir / "index";
 }
 
-Status DBDirectory::open() {
-  data_files_path = path / "data";
-  std::cout << path / "data" << std::endl;
-  index_files_path = path / "index";
-  return Status(true);
+DBDirectory::DBDirectory(fs::path dir) {
+  db_dir = dir;
+  data_files_dir = dir / "data";
+
+  std::cout << "DBDirecotry::data_files_dir: " << data_files_dir << std::endl;
+
+  index_files_dir = dir / "index";
+
+  std::cout << "DBDirecotry::index_files_dir: " << index_files_dir << std::endl;
 }
+
+DBDirectory* DBDirectory::open(fs::path dir) {
+  return new DBDirectory(dir);
+}
+
 } // namespace norodb
