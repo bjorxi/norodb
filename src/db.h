@@ -4,7 +4,7 @@
 #include <string>
 
 #include "db_options.h"
-#include "byte_arr.h"
+#include "byte_buffer.h"
 #include "status.h"
 #include "db_directory.h"
 #include "row.h"
@@ -15,14 +15,13 @@ class DB {
   std::string directory;
   DBOptions db_options;
 
-
   public:
     DB(const std::string& dir, const DBOptions& opts) : directory(dir), db_options(opts) {}
     Status open();
 
-    Status put(const ByteArr& key, const ByteArr &val);
-    Status get(const ByteArr& key, ByteArr& val);
-    Status remove(const ByteArr& key);
+    Status put(const ByteBuffer& key, const ByteBuffer &val);
+    Status get(const ByteBuffer& key, ByteBuffer& val);
+    Status remove(const ByteBuffer& key);
 };
 } // namespace norodb
 
