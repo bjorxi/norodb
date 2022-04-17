@@ -4,7 +4,6 @@
 #include <stddef.h>
 #include <cstdint>
 
-#include "byte_arr.h"
 #include "byte_buffer.h"
 
 
@@ -40,6 +39,7 @@ class RowHeader {
     ByteBuffer* serialize();
     static RowHeader* deserialize(ByteBuffer& buffer);
     std::string to_string();
+    uint32_t size() {return HEADER_SIZE;};
 };
 
 
@@ -47,6 +47,7 @@ class Row {
   ByteBuffer* key;
   ByteBuffer* val;
   RowHeader* header;
+  uint32_t _size;
 
   public:
     Row(ByteBuffer* key, ByteBuffer* val);
@@ -54,6 +55,7 @@ class Row {
 
     ByteBuffer* serialize();
     static Row* deserialize(ByteBuffer& buffer);
+    uint32_t size() {return _size;};
 };
 
 } // namespace norodb

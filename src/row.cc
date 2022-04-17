@@ -40,6 +40,9 @@ Row::Row(ByteBuffer* key, ByteBuffer* val) {
   this->key = key;
   this->val = val;
   header = new RowHeader(0, 0, key->size(), val->size(), 0);
+  _size = key->size() + val->size() + header->size();
+}
+
 ByteBuffer* Row::serialize() {
   auto buff = new ByteBuffer();
   buff->put(header->serialize());
