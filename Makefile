@@ -30,7 +30,7 @@ test: all
 
 
 format:
-	find foo/bar/ -iname '*.h' -o -iname '*.cpp' | xargs clang-format -i
+	find . -iname '*.h' -o -iname '*.cc' | xargs clang-format -i
 
 clean:
 	rm *.o || true
