@@ -2,20 +2,19 @@
 
 #include "db.h"
 
-
 namespace norodb {
 
 Status DB::open() {
   fs::path p("norodb");
   DBDirectory db_dir(p);
-  std::cout << "db dir path " << db_dir.get_path() << std::endl;
-  std::cout << "data files path " << db_dir.get_data_dir() << std::endl;
-  std::cout << "index files path " << db_dir.get_index_dir() << std::endl;
-
+  data_file = new DBFile(0, db_dir);
   return Status(true);
 }
 
-Status DB::put(const ByteBuffer& key, const ByteBuffer &val) {
+Status DB::put(ByteBuffer& key, ByteBuffer &val) {
+  Row row(&key, &val);
+  data_file->write(*row.serialize());
+
   return Status(true);
 }
 
