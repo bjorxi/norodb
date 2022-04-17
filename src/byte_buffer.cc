@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <cassert>
 
 #include "byte_buffer.h"
 
@@ -29,6 +30,12 @@ std::string ByteBuffer::to_string() {
 
   return s.str();
 }
+
+
+void ByteBuffer::grow(uint32_t val) {
+  assert(val > capacity());
+  buff.resize(val);
+};
 
 uint8_t ByteBuffer::get() {
   // TODO check if rpos >= size

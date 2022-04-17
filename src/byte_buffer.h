@@ -25,8 +25,9 @@ class ByteBuffer {
     uint32_t size() {return wpos;};
     uint32_t capacity() {return buff.size();};
     void grow() {buff.resize(buff.size()*2);};
-    void grow(uint32_t val) {buff.resize(val);};
+    void grow(uint32_t val);
     std::string to_string();
+    std::vector<uint8_t>* bytes() {return &buff;};
 
     uint8_t get();
     uint8_t get(uint32_t index);
