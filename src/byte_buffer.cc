@@ -121,6 +121,8 @@ void ByteBuffer::put(ByteBuffer* src) {
   for (int i = 0; i < src->size(); i++) {
     buff[wpos+i] = src->get(i);
   }
+
+  wpos += src->size();
 }
 
 } // namespace norodb
