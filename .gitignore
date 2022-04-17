@@ -193,3 +193,5 @@ cython_debug/
 
 # Other
 examples/main
+*.data
+*.datac
