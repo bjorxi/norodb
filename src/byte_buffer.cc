@@ -4,6 +4,7 @@
 
 #include "byte_buffer.h"
 
+
 namespace norodb {
 
 ByteBuffer::ByteBuffer() {
@@ -24,8 +25,8 @@ ByteBuffer::ByteBuffer(std::string src) {
 std::string ByteBuffer::to_string() {
   std::stringstream s;
 
-  for (int i = 0; i < wpos; i++) {
-    s << get(i);
+  for (int i = 0; i < size(); i++) {
+    s << buff[i];
   }
 
   return s.str();
@@ -34,7 +35,7 @@ std::string ByteBuffer::to_string() {
 
 void ByteBuffer::grow(uint32_t val) {
   assert(val > capacity());
-  buff.resize(val);
+  buff.reserve(val);
 };
 
 uint8_t ByteBuffer::get() {
@@ -81,7 +82,7 @@ uint64_t ByteBuffer::get_long() {
 }
 
 void ByteBuffer::put(uint8_t b) {
-  if (wpos + 1 > size()) {
+  if (wpos + 1 > capacity()) {
     grow();
   }
 
@@ -90,7 +91,7 @@ void ByteBuffer::put(uint8_t b) {
 }
 
 void ByteBuffer::put_int(uint32_t value) {
-  if (wpos + INT_SIZE > size()) {
+  if (wpos + INT_SIZE > capacity()) {
     grow();
   }
 
@@ -104,7 +105,7 @@ void ByteBuffer::put_int(uint32_t value) {
 
 void ByteBuffer::put_long(uint64_t value) {
 
-  if (wpos + LONG_SIZE > size()) {
+  if (wpos + LONG_SIZE > capacity()) {
     grow();
   }
 
@@ -121,8 +122,8 @@ void ByteBuffer::put_long(uint64_t value) {
 }
 
 void ByteBuffer::put(ByteBuffer* src) {
-  if (wpos + src->size() > size()) {
-    grow(size()*2 + src->size());
+  if (wpos + src->size() > capacity()) {
+    grow(capacity()*2 + src->size());
   }
 
   for (int i = 0; i < src->size(); i++) {
