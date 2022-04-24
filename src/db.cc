@@ -11,19 +11,15 @@ Status DB::open() {
   return Status(true);
 }
 
-Status DB::put(ByteBuffer& key, ByteBuffer &val) {
+Status DB::put(ByteBuffer &key, ByteBuffer &val) {
   Row row(&key, &val);
   data_file->write(*row.serialize());
 
   return Status(true);
 }
 
-Status DB::get(const ByteBuffer& key, ByteBuffer& val) {
-  return Status(true);
-}
+Status DB::get(const ByteBuffer &key, ByteBuffer &val) { return Status(true); }
 
-Status DB::remove(const ByteBuffer& key) {
-  return Status(true);
-}
+Status DB::remove(const ByteBuffer &key) { return Status(true); }
 
 } // namespace norodb

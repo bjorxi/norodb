@@ -1,11 +1,10 @@
 #ifndef NORO_DB_ROW_H_
 #define NORO_DB_ROW_H_
 
-#include <stddef.h>
 #include <cstdint>
+#include <stddef.h>
 
 #include "byte_buffer.h"
-
 
 namespace norodb {
 
@@ -32,30 +31,30 @@ class RowHeader {
   uint32_t val_size;
   uint64_t seq_num;
 
-  public:
-    RowHeader(uint64_t check_sum, uint8_t version, uint8_t key_size, uint32_t val_size, uint64_t seq_num) :
-      check_sum(check_sum), version(version), key_size(key_size), val_size(val_size),
-      seq_num(seq_num) {};
-    ByteBuffer* serialize();
-    static RowHeader* deserialize(ByteBuffer& buffer);
-    std::string to_string();
-    uint32_t size() {return HEADER_SIZE;};
+public:
+  RowHeader(uint64_t check_sum, uint8_t version, uint8_t key_size,
+            uint32_t val_size, uint64_t seq_num)
+      : check_sum(check_sum), version(version), key_size(key_size),
+        val_size(val_size), seq_num(seq_num){};
+  ByteBuffer *serialize();
+  static RowHeader *deserialize(ByteBuffer &buffer);
+  std::string to_string();
+  uint32_t size() { return HEADER_SIZE; };
 };
 
-
 class Row {
-  ByteBuffer* key;
-  ByteBuffer* val;
-  RowHeader* header;
+  ByteBuffer *key;
+  ByteBuffer *val;
+  RowHeader *header;
   uint32_t _size;
 
-  public:
-    Row(ByteBuffer* key, ByteBuffer* val);
-    ~Row();
+public:
+  Row(ByteBuffer *key, ByteBuffer *val);
+  ~Row();
 
-    ByteBuffer* serialize();
-    static Row* deserialize(ByteBuffer& buffer);
-    uint32_t size() {return _size;};
+  ByteBuffer *serialize();
+  static Row *deserialize(ByteBuffer &buffer);
+  uint32_t size() { return _size; };
 };
 
 } // namespace norodb

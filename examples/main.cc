@@ -1,10 +1,9 @@
-#include <iostream>
 #include <filesystem>
+#include <iostream>
 
+#include "byte_buffer.h"
 #include "db.h"
 #include "row.h"
-#include "byte_buffer.h"
-
 
 namespace fs = std::filesystem;
 
@@ -33,7 +32,6 @@ int main() {
   // std::cout << new_rh->to_string() << std::endl;
   //
   // std::cout << "Done!" << std::endl;
-
 
   // norodb::ByteBuffer bb("HELLO");
   //
