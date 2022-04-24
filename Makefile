@@ -2,7 +2,7 @@ CC = g++
 CFLAGS = -std=c++17 -lstdc++fs
 OBJECTS =
 
-all: db.o db_directory.o row.o coding.o byte_buffer.o db_file.o
+build: db.o db_directory.o row.o coding.o byte_buffer.o db_file.o
 	ar rcs norodb.a db.o db_directory.o row.o coding.o byte_buffer.o db_file.o
 
 db_directory.o:
