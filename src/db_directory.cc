@@ -11,23 +11,32 @@ DBDirectory::DBDirectory(const std::string &p) {
     db_dir = fs::path("norodb");
   }
 
-  std::cout << "DBDirecotry::data_files_dir: " << data_files_dir << std::endl;
   data_files_dir = db_dir / "data";
-  std::cout << "DBDirecotry::data_files_dir: " << data_files_dir << std::endl;
   index_files_dir = db_dir / "index";
+  create_directories();
 }
 
 DBDirectory::DBDirectory(fs::path dir) {
   db_dir = dir;
   data_files_dir = dir / "data";
-
-  std::cout << "DBDirecotry::data_files_dir: " << data_files_dir << std::endl;
-
   index_files_dir = dir / "index";
-
-  std::cout << "DBDirecotry::index_files_dir: " << index_files_dir << std::endl;
+  create_directories();
 }
 
 DBDirectory *DBDirectory::open(fs::path dir) { return new DBDirectory(dir); }
+
+
+// Creates dirctories used by the DB.
+void DBDirectory::create_directories() {
+  if (!fs::exists(db_dir))
+    fs::create_directory(db_dir);
+
+  if (!fs::exists(data_files_dir))
+    fs::create_directory(data_files_dir);
+
+  if (!fs::exists(index_files_dir))
+    fs::create_directory(index_files_dir);
+}
+
 
 } // namespace norodb

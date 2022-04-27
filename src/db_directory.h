@@ -22,6 +22,7 @@ public:
   DBDirectory(fs::path dir);
   static DBDirectory *open(fs::path dir);
   void close();
+  void create_directories();
   fs::path get_path() { return db_dir; };
   fs::path get_data_dir() { return data_files_dir; };
   fs::path get_index_dir() { return index_files_dir; };
