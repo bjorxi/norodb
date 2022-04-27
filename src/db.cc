@@ -1,6 +1,6 @@
-#include <iostream>
-
 #include "db.h"
+
+#include <iostream>
 
 namespace norodb {
 
@@ -22,4 +22,4 @@ Status DB::get(const ByteBuffer &key, ByteBuffer &val) { return Status(true); }
 
 Status DB::remove(const ByteBuffer &key) { return Status(true); }
 
-} // namespace norodb
+}  // namespace norodb

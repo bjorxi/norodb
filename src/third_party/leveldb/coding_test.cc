@@ -190,4 +190,4 @@ TEST(Coding, Strings) {
   ASSERT_EQ("", input.ToString());
 }
 
-} // namespace leveldb
+}  // namespace leveldb

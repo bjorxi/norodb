@@ -1,7 +1,7 @@
-#include <iostream>
-#include <filesystem>
-
 #include "db_file.h"
+
+#include <filesystem>
+#include <iostream>
 
 namespace fs = std::filesystem;
 
@@ -20,8 +20,8 @@ DBFile::DBFile(uint32_t file_id, DBDirectory *db_dir) {
 }
 
 void DBFile::write(ByteBuffer &buff) {
-  std::cout << "DBFile::write | writing a buffer of size: " << buff.size() << " Str: " << buff.to_string()
-            << std::endl;
+  std::cout << "DBFile::write | writing a buffer of size: " << buff.size()
+            << " Str: " << buff.to_string() << std::endl;
   file.write(buff.ptr(), buff.size());
   file.flush();
   std::cout << "DBFile::write | done writing a buffer of size:" << buff.size()
@@ -29,4 +29,4 @@ void DBFile::write(ByteBuffer &buff) {
   write_offset += buff.size();
 }
 
-} // namespace norodb
+}  // namespace norodb

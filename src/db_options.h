@@ -4,11 +4,11 @@
 namespace norodb {
 
 class DBOptions {
-public:
-  int maxFileSize = 1024 * 1024 * 1024; // 1GB
+ public:
+  int maxFileSize = 1024 * 1024 * 1024;  // 1GB
   long flushDataSizeBytes = -1;
 };
 
-} // namespace norodb
+}  // namespace norodb
 
 #endif

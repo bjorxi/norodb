@@ -8,6 +8,7 @@
 
 #include "byte_buffer.h"
 #include "db_directory.h"
+#include "row.h"
 
 namespace norodb {
 
@@ -19,15 +20,16 @@ class DBFile {
   DBDirectory *db_dir;
   std::fstream file;
 
-public:
+ public:
   DBFile(uint32_t file_id, DBDirectory *db_dir);
   void write(ByteBuffer &buff);
   ByteBuffer *read();
+  Row *read();
   ByteBuffer *read(uint64_t offset);
   void close();
   void remove();
 };
 
-} // namespace norodb
+}  // namespace norodb
 
 #endif

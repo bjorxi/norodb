@@ -1,8 +1,9 @@
+#include "row.h"
+
 #include <iostream>
 #include <sstream>
 #include <string>
 
-#include "row.h"
 #include "third_party/leveldb/coding.h"
 
 namespace norodb {
@@ -58,9 +59,9 @@ Row *Row::deserialize(ByteBuffer &buffer) {
 }
 
 Row::~Row() {
-  delete key;
-  delete val;
+  // delete key;
+  // delete val;
   delete header;
 }
 
-} // namespace norodb
+}  // namespace norodb

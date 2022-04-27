@@ -17,7 +17,7 @@ class DB {
   DBOptions db_options;
   DBFile *data_file;
 
-public:
+ public:
   DB(const std::string &dir, const DBOptions &opts)
       : directory(dir), db_options(opts) {}
   Status open();
@@ -26,6 +26,6 @@ public:
   Status get(const ByteBuffer &key, ByteBuffer &val);
   Status remove(const ByteBuffer &key);
 };
-} // namespace norodb
+}  // namespace norodb
 
 #endif

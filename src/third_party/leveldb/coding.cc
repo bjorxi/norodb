@@ -153,4 +153,4 @@ const char *GetVarint64Ptr(const char *p, const char *limit, uint64_t *value) {
 //   }
 // }
 
-} // namespace leveldb
+}  // namespace leveldb

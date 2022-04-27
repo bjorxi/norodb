@@ -1,10 +1,9 @@
+#include <gtest/gtest.h>
+
 #include <iostream>
 #include <string>
 
-#include <gtest/gtest.h>
-
 #include "db_directory.h"
-
 
 TEST(DBDirectoryConstruction, WithFsPath) {
   fs::path p("abc");
@@ -13,7 +12,6 @@ TEST(DBDirectoryConstruction, WithFsPath) {
   ASSERT_EQ(db_dir.get_path(), "abc");
   ASSERT_EQ(db_dir.get_data_dir(), "abc/data");
   ASSERT_EQ(db_dir.get_index_dir(), "abc/index");
-
 }
 
 TEST(DBDirectoryConstruction, WithString) {
@@ -23,7 +21,6 @@ TEST(DBDirectoryConstruction, WithString) {
   ASSERT_EQ(db_dir.get_path(), "random");
   ASSERT_EQ(db_dir.get_data_dir(), "random/data");
   ASSERT_EQ(db_dir.get_index_dir(), "random/index");
-
 }
 
 TEST(DBDirectoryConstruction, WithEmptyString) {
@@ -34,7 +31,6 @@ TEST(DBDirectoryConstruction, WithEmptyString) {
   ASSERT_EQ(db_dir.get_data_dir(), "norodb/data");
   ASSERT_EQ(db_dir.get_index_dir(), "norodb/index");
 }
-
 
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);

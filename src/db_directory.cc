@@ -25,18 +25,13 @@ DBDirectory::DBDirectory(fs::path dir) {
 
 DBDirectory *DBDirectory::open(fs::path dir) { return new DBDirectory(dir); }
 
-
 // Creates dirctories used by the DB.
 void DBDirectory::create_directories() {
-  if (!fs::exists(db_dir))
-    fs::create_directory(db_dir);
+  if (!fs::exists(db_dir)) fs::create_directory(db_dir);
 
-  if (!fs::exists(data_files_dir))
-    fs::create_directory(data_files_dir);
+  if (!fs::exists(data_files_dir)) fs::create_directory(data_files_dir);
 
-  if (!fs::exists(index_files_dir))
-    fs::create_directory(index_files_dir);
+  if (!fs::exists(index_files_dir)) fs::create_directory(index_files_dir);
 }
 
-
-} // namespace norodb
+}  // namespace norodb

@@ -6,11 +6,11 @@ namespace norodb {
 class Status {
   bool _ok;
 
-public:
+ public:
   Status(bool ok) { _ok = ok; }
 
   bool ok() const { return _ok; }
 };
-} // namespace norodb
+}  // namespace norodb
 
 #endif

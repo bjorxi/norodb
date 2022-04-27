@@ -16,7 +16,7 @@ class ByteBuffer {
   uint32_t wpos = 0;
   uint32_t rpos = 0;
 
-public:
+ public:
   ByteBuffer();
   ByteBuffer(uint32_t size);
   ByteBuffer(std::string src);
@@ -27,7 +27,7 @@ public:
     buff.clear();
   };
 
-  char* ptr() {return (char*)&buff[0];};
+  char *ptr() { return (char *)&buff[0]; };
   uint32_t get_wpos() { return wpos; };
   uint32_t get_rpos() { return rpos; };
   uint32_t size() { return wpos; };
@@ -41,7 +41,7 @@ public:
   uint8_t get(uint32_t index);
   void get_bytes(uint8_t *buf, uint32_t len);
   char get_char();
-  char get_char(uint32_t index); // Absolute
+  char get_char(uint32_t index);  // Absolute
   double get_double();
   double get_double(uint32_t index);
   float get_float();
@@ -72,6 +72,6 @@ public:
   void put_short(uint16_t value, uint32_t index);
 };
 
-} // namespace norodb
+}  // namespace norodb
 
 #endif

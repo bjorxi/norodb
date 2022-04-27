@@ -1,6 +1,6 @@
-#include <iostream>
-
 #include <gtest/gtest.h>
+
+#include <iostream>
 
 #include "byte_buffer.h"
 
@@ -65,8 +65,10 @@ TEST(ByteBufferPut, PutWillGrow) {
   ASSERT_EQ(buff.to_string(), "a");
 
   buff.put(static_cast<uint8_t>('b'));
-  ASSERT_EQ(buff.size(), 2) << "ByteBuffer::size is " << buff.size() << ", but expected " << 2;
-  ASSERT_EQ(buff.capacity(), 2) << "ByteBuffer::capacity is " << buff.capacity() << ", but expected " << 2;
+  ASSERT_EQ(buff.size(), 2)
+      << "ByteBuffer::size is " << buff.size() << ", but expected " << 2;
+  ASSERT_EQ(buff.capacity(), 2) << "ByteBuffer::capacity is " << buff.capacity()
+                                << ", but expected " << 2;
   ASSERT_EQ(buff.to_string(), "ab");
 }
 

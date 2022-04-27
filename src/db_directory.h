@@ -16,9 +16,12 @@ class DBDirectory {
   fs::path data_files_dir;
   fs::path index_files_dir;
 
-public:
+ public:
   DBDirectory(const std::string &p);
-  DBDirectory() { db_dir = "norodb"; };
+  // DBDirectory() {
+  //   db_dir = "norodb";
+  //   create_directories();
+  // };
   DBDirectory(fs::path dir);
   static DBDirectory *open(fs::path dir);
   void close();
@@ -30,6 +33,6 @@ public:
   std::vector<fs::path> list_index_files();
 };
 
-} // namespace norodb
+}  // namespace norodb
 
 #endif
