@@ -27,6 +27,7 @@ public:
     buff.clear();
   };
 
+  char* ptr() {return (char*)&buff[0];};
   uint32_t get_wpos() { return wpos; };
   uint32_t get_rpos() { return rpos; };
   uint32_t size() { return wpos; };
