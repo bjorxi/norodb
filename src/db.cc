@@ -6,7 +6,7 @@ namespace norodb {
 
 Status DB::open() {
   fs::path p("norodb");
-  DBDirectory db_dir(p);
+  auto db_dir = new DBDirectory(p);
   data_file = new DBFile(0, db_dir);
   return Status(true);
 }
