@@ -17,13 +17,13 @@ class DBDirectory {
   fs::path index_files_dir;
 
  public:
-  DBDirectory(const std::string &p);
+  DBDirectory(const std::string& p);
   // DBDirectory() {
   //   db_dir = "norodb";
   //   create_directories();
   // };
   DBDirectory(fs::path dir);
-  static DBDirectory *open(fs::path dir);
+  static DBDirectory* open(fs::path dir);
   void close();
   void create_directories();
   fs::path get_path() { return db_dir; };

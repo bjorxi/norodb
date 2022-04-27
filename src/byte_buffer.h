@@ -27,7 +27,7 @@ class ByteBuffer {
     buff.clear();
   };
 
-  char *ptr() { return (char *)&buff[0]; };
+  char* ptr() { return (char*)&buff[0]; };
   uint32_t get_wpos() { return wpos; };
   uint32_t get_rpos() { return rpos; };
   uint32_t size() { return wpos; };
@@ -35,11 +35,11 @@ class ByteBuffer {
   void grow() { buff.reserve(buff.capacity() * 2); };
   void grow(uint32_t val);
   std::string to_string();
-  std::vector<uint8_t> *bytes() { return &buff; };
+  std::vector<uint8_t>* bytes() { return &buff; };
 
   uint8_t get();
   uint8_t get(uint32_t index);
-  void get_bytes(uint8_t *buf, uint32_t len);
+  void get_bytes(uint8_t* buf, uint32_t len);
   char get_char();
   char get_char(uint32_t index);  // Absolute
   double get_double();
@@ -53,11 +53,11 @@ class ByteBuffer {
   uint16_t get_short();
   uint16_t get_short(uint32_t index);
 
-  void put(ByteBuffer *src);
+  void put(ByteBuffer* src);
   void put(uint8_t b);
   void put(uint8_t b, uint32_t index);
-  void put_bytes(uint8_t *b, uint32_t len);
-  void put_bytes(uint8_t *b, uint32_t len, uint32_t index);
+  void put_bytes(uint8_t* b, uint32_t len);
+  void put_bytes(uint8_t* b, uint32_t len, uint32_t index);
   void put_char(char value);
   void put_char(char value, uint32_t index);
   void put_double(double value);

@@ -32,7 +32,7 @@ TEST(DBDirectoryConstruction, WithEmptyString) {
   ASSERT_EQ(db_dir.get_index_dir(), "norodb/index");
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

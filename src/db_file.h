@@ -17,15 +17,15 @@ enum FileType { DATA_FILE, INDEX_FILE, COMPACTED_FILE };
 class DBFile {
   uint64_t write_offset = 0;
   uint32_t file_id;
-  DBDirectory *db_dir;
+  DBDirectory* db_dir;
   std::fstream file;
 
  public:
-  DBFile(uint32_t file_id, DBDirectory *db_dir);
-  void write(ByteBuffer &buff);
-  ByteBuffer *read();
-  Row *read();
-  ByteBuffer *read(uint64_t offset);
+  DBFile(uint32_t file_id, DBDirectory* db_dir);
+  void write(ByteBuffer& buff);
+  ByteBuffer* read();
+  Row* read();
+  ByteBuffer* read(uint64_t offset);
   void close();
   void remove();
 };

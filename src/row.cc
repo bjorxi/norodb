@@ -19,7 +19,7 @@ std::string RowHeader::to_string() {
 }
 
 // Serializes a header to a bytearray so it can be written to a  file
-ByteBuffer *RowHeader::serialize() {
+ByteBuffer* RowHeader::serialize() {
   auto buff = new ByteBuffer();
   buff->put_long(check_sum);
   buff->put(version);
@@ -31,19 +31,19 @@ ByteBuffer *RowHeader::serialize() {
 }
 
 // Recreates a header from a byte array
-RowHeader *RowHeader::deserialize(ByteBuffer &buff) {
+RowHeader* RowHeader::deserialize(ByteBuffer& buff) {
   return new RowHeader(buff.get_long(), buff.get(), buff.get(), buff.get_int(),
                        buff.get_long());
 }
 
-Row::Row(ByteBuffer *key, ByteBuffer *val) {
+Row::Row(ByteBuffer* key, ByteBuffer* val) {
   this->key = key;
   this->val = val;
   header = new RowHeader(0, 0, key->size(), val->size(), 0);
   _size = key->size() + val->size() + header->size();
 }
 
-ByteBuffer *Row::serialize() {
+ByteBuffer* Row::serialize() {
   auto buff = new ByteBuffer();
   buff->put(header->serialize());
   buff->put(key);
@@ -52,9 +52,9 @@ ByteBuffer *Row::serialize() {
   return buff;
 }
 
-Row *Row::deserialize(ByteBuffer &buffer) {
-  ByteBuffer *key;
-  ByteBuffer *val;
+Row* Row::deserialize(ByteBuffer& buffer) {
+  ByteBuffer* key;
+  ByteBuffer* val;
   return new Row(key, val);
 }
 

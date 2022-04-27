@@ -40,24 +40,24 @@ class RowHeader {
         key_size(key_size),
         val_size(val_size),
         seq_num(seq_num){};
-  ByteBuffer *serialize();
-  static RowHeader *deserialize(ByteBuffer &buffer);
+  ByteBuffer* serialize();
+  static RowHeader* deserialize(ByteBuffer& buffer);
   std::string to_string();
   uint32_t size() { return HEADER_SIZE; };
 };
 
 class Row {
-  ByteBuffer *key;
-  ByteBuffer *val;
-  RowHeader *header;
+  ByteBuffer* key;
+  ByteBuffer* val;
+  RowHeader* header;
   uint32_t _size;
 
  public:
-  Row(ByteBuffer *key, ByteBuffer *val);
+  Row(ByteBuffer* key, ByteBuffer* val);
   ~Row();
 
-  ByteBuffer *serialize();
-  static Row *deserialize(ByteBuffer &buffer);
+  ByteBuffer* serialize();
+  static Row* deserialize(ByteBuffer& buffer);
   uint32_t size() { return _size; };
 };
 

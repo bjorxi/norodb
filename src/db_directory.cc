@@ -4,7 +4,7 @@
 
 namespace norodb {
 
-DBDirectory::DBDirectory(const std::string &p) {
+DBDirectory::DBDirectory(const std::string& p) {
   if (p.size() > 0) {
     db_dir = fs::path(p);
   } else {
@@ -23,7 +23,7 @@ DBDirectory::DBDirectory(fs::path dir) {
   create_directories();
 }
 
-DBDirectory *DBDirectory::open(fs::path dir) { return new DBDirectory(dir); }
+DBDirectory* DBDirectory::open(fs::path dir) { return new DBDirectory(dir); }
 
 // Creates dirctories used by the DB.
 void DBDirectory::create_directories() {
