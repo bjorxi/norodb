@@ -195,3 +195,7 @@ cython_debug/
 examples/main
 *.data
 *.datac
+test/*
+!test/*.cc
+!test/*.h
+!test/Makefile
