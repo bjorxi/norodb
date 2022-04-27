@@ -20,9 +20,10 @@ DBFile::DBFile(uint32_t file_id, DBDirectory *db_dir) {
 }
 
 void DBFile::write(ByteBuffer &buff) {
-  std::cout << "DBFile::write | writing a buffer of size:" << buff.size()
+  std::cout << "DBFile::write | writing a buffer of size: " << buff.size() << " Str: " << buff.to_string()
             << std::endl;
-  file.write(buff.to_string().c_str(), buff.size());
+  file.write(buff.ptr(), buff.size());
+  file.flush();
   std::cout << "DBFile::write | done writing a buffer of size:" << buff.size()
             << std::endl;
   write_offset += buff.size();
