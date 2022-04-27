@@ -24,7 +24,7 @@ db_file.o:
 	$(CC) $(CFLAGS) -c src/db_file.cc
 
 
-test: all
+test: build
 	@echo "\n\n >>>> RUNNING TESTS <<<<\n\n"
 	make -B -C test/
 
