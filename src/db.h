@@ -2,6 +2,7 @@
 #define NORO_DB_DB_H_
 
 #include <string>
+#include <mutex>
 
 #include "byte_buffer.h"
 #include "db_directory.h"
@@ -16,6 +17,7 @@ class DB {
   std::string directory;
   DBOptions db_options;
   DBFile* data_file;
+  std::mutex write_lock;
 
  public:
   DB(const std::string& dir, const DBOptions& opts)

@@ -12,9 +12,10 @@ Status DB::open() {
 }
 
 Status DB::put(ByteBuffer& key, ByteBuffer& val) {
+  write_lock.lock();
   Row row(&key, &val);
-  data_file->write(*row.serialize());
-
+  data_file->write_row(row);
+  write_lock.unlock();
   return Status(true);
 }
 
