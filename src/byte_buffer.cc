@@ -49,10 +49,9 @@ uint8_t ByteBuffer::get(uint32_t pos) {
 
 uint32_t ByteBuffer::get_int() {
   // TODO check if rpos >= size
-  uint32_t val = (static_cast<uint32_t>(buff[rpos])) |
-                 (static_cast<uint32_t>(buff[rpos + 1]) << 8) |
-                 (static_cast<uint32_t>(buff[rpos + 2]) << 16) |
-                 (static_cast<uint32_t>(buff[rpos + 3]) << 24);
+  uint32_t val =
+      (static_cast<uint32_t>(buff[rpos])) | (static_cast<uint32_t>(buff[rpos + 1]) << 8) |
+      (static_cast<uint32_t>(buff[rpos + 2]) << 16) | (static_cast<uint32_t>(buff[rpos + 3]) << 24);
 
   rpos += INT_SIZE;
 
@@ -61,14 +60,13 @@ uint32_t ByteBuffer::get_int() {
 
 uint64_t ByteBuffer::get_long() {
   // TODO check if rpos >= size
-  uint64_t val = (static_cast<uint64_t>(buff[rpos + 0])) |
-                 (static_cast<uint64_t>(buff[rpos + 1]) << 8) |
-                 (static_cast<uint64_t>(buff[rpos + 2]) << 16) |
-                 (static_cast<uint64_t>(buff[rpos + 3]) << 24) |
-                 (static_cast<uint64_t>(buff[rpos + 4]) << 32) |
-                 (static_cast<uint64_t>(buff[rpos + 5]) << 40) |
-                 (static_cast<uint64_t>(buff[rpos + 6]) << 48) |
-                 (static_cast<uint64_t>(buff[rpos + 7]) << 56);
+  uint64_t val =
+      (static_cast<uint64_t>(buff[rpos + 0])) | (static_cast<uint64_t>(buff[rpos + 1]) << 8) |
+      (static_cast<uint64_t>(buff[rpos + 2]) << 16) |
+      (static_cast<uint64_t>(buff[rpos + 3]) << 24) |
+      (static_cast<uint64_t>(buff[rpos + 4]) << 32) |
+      (static_cast<uint64_t>(buff[rpos + 5]) << 40) |
+      (static_cast<uint64_t>(buff[rpos + 6]) << 48) | (static_cast<uint64_t>(buff[rpos + 7]) << 56);
 
   rpos += LONG_SIZE;
 

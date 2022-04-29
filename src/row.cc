@@ -11,9 +11,8 @@ namespace norodb {
 std::string RowHeader::to_string() {
   std::stringstream s;
 
-  s << "RowHeader(check_sum=" << check_sum << ", version=" << version
-    << ", key_size=" << key_size << ", val_size=" << val_size
-    << ", seq_num=" << seq_num << ")";
+  s << "RowHeader(check_sum=" << check_sum << ", version=" << version << ", key_size=" << key_size
+    << ", val_size=" << val_size << ", seq_num=" << seq_num << ")";
 
   return s.str();
 }
@@ -32,8 +31,7 @@ ByteBuffer* RowHeader::serialize() {
 
 // Recreates a header from a byte array
 RowHeader* RowHeader::deserialize(ByteBuffer& buff) {
-  return new RowHeader(buff.get_long(), buff.get(), buff.get(), buff.get_int(),
-                       buff.get_long());
+  return new RowHeader(buff.get_long(), buff.get(), buff.get(), buff.get_int(), buff.get_long());
 }
 
 Row::Row(ByteBuffer* key, ByteBuffer* val) {

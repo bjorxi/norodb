@@ -20,12 +20,11 @@ class DB {
   std::mutex write_lock;
 
  public:
-  DB(const std::string& dir, const DBOptions& opts)
-      : directory(dir), db_options(opts) {}
+  DB(const std::string& dir, const DBOptions& opts) : directory(dir), db_options(opts) {}
   Status open();
 
   Status put(ByteBuffer& key, ByteBuffer& val);
-  Status get(const ByteBuffer& key, ByteBuffer& val);
+  Status get(const ByteBuffer& key);
   Status remove(const ByteBuffer& key);
 };
 }  // namespace norodb
