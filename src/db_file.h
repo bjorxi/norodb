@@ -60,10 +60,17 @@ class DBFile {
   Row* read_row(uint64_t offset);
 
   /**
+   * Forces to write the data that is still in the stream/os buffers to the disk
+   */
+  void flush() { file.flush(); }
+
+  /**
    * Closes the opened file
    */
   void close();
   void remove();
+
+  uint64_t get_write_offset() { return write_offset; };
 };
 
 }  // namespace norodb
