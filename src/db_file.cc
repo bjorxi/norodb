@@ -22,7 +22,7 @@ void DBFile::write(ByteBuffer& buff) {
   int written;
   file.write(buff.ptr(), buff.size());
 
-  if (db_options.flush_on_write) {
+  if (db_options.FLUSH_ON_WRITE) {
     file.flush();
   }
 

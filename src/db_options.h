@@ -5,9 +5,18 @@ namespace norodb {
 
 class DBOptions {
  public:
-  int maxFileSize = 1024 * 1024 * 1024;  // 1GB
-  long flushDataSizeBytes = -1;
-  bool flush_on_write = true;
+  /**
+   * 1GB. If current DBFile exceeds this limit a new DBFile will be created
+   */
+  uint32_t MAX_FILE_SIZE = 1024 * 1024 * 1024;
+
+  /**
+   * If is positive buffers will be flushed to the disk once the buffer size grows bigger
+   * than this value
+   */
+  uint32_t FLUSH_DATA_SIZE_BYTES = -1;
+
+  bool FLUSH_ON_WRITE = true;  // if true, buffers will flushed to the dist on every write
 };
 
 }  // namespace norodb
