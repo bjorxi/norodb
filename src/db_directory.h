@@ -18,10 +18,12 @@ class DBDirectory {
 
  public:
   DBDirectory(const std::string& p);
-  // DBDirectory() {
-  //   db_dir = "norodb";
-  //   create_directories();
-  // };
+  DBDirectory() {
+    db_dir = "norodb";
+    data_files_dir = db_dir / "data";
+    index_files_dir = db_dir / "index";
+    create_directories();
+  };
   DBDirectory(fs::path dir);
   static DBDirectory* open(fs::path dir);
   void close();
