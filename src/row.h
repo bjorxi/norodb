@@ -44,6 +44,10 @@ class RowHeader {
   static RowHeader* deserialize(ByteBuffer& buffer);
   std::string to_string();
   uint32_t size() { return HEADER_SIZE; };
+  void set_seq_num(uint64_t num) { seq_num = num; }
+  uint64_t get_seq_num() { return seq_num; }
+  void set_version(uint8_t v) { version = v; }
+  uint8_t get_version() { return version; }
 };
 
 class Row {
@@ -59,6 +63,10 @@ class Row {
   ByteBuffer* serialize();
   static Row* deserialize(ByteBuffer& buffer);
   uint32_t size() { return _size; };
+  void set_seq_num(uint64_t num) { header->set_seq_num(num); }
+  uint64_t get_seq_num() { return header->get_seq_num(); }
+  void set_version(uint8_t num) { header->set_version(num); }
+  uint8_t get_version() { return header->get_version(); }
 };
 
 }  // namespace norodb
