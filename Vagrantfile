@@ -9,14 +9,14 @@
 # For macos Catalina and Vagrant 2.2.19 check this https://github.com/hashicorp/vagrant/issues/12583
 #
 Vagrant.configure("2") do |config|
-  config.vm.box = "debian/buster64"
+  config.vm.box = "ubuntu/focal64"
   config.vm.box_check_update = false
   config.vm.network :private_network, ip: "192.168.50.50"
 
   nfsPath = "."
-  if Dir.exist?("/System/Volumes/Data")
-      nfsPath = "/System/Volumes/Data" + Dir.pwd
-  end
+  # if Dir.exist?("/System/Volumes/Data")
+  #     nfsPath = "/System/Volumes/Data" + Dir.pwd
+  # end
   config.vm.synced_folder nfsPath, "/vagrant", type: "nfs"
 
   config.vm.provider "virtualbox" do |vb|
@@ -27,6 +27,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
-    apt-get install -y build-essential clang-format git 
+    apt-get install -y build-essential clang-format git cmake
+    cd /vagrant/test/third_party/googletest && cmake CMakeLists.txt && make install
   SHELL
 end
