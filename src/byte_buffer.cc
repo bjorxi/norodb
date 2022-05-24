@@ -73,6 +73,15 @@ uint64_t ByteBuffer::get_long() {
   return val;
 }
 
+void ByteBuffer::get_bytes(uint8_t* dest_buff, uint32_t len) {
+  assert(rpos+len < size());
+  for (int i=0; i < len; ++i) {
+    dest_buff[i] = buff[rpos];
+    rpos++;
+  }
+}
+
+
 void ByteBuffer::put(uint8_t b) {
   if (wpos + 1 > capacity()) {
     grow();
@@ -122,6 +131,17 @@ void ByteBuffer::put(ByteBuffer* src) {
   }
 
   wpos += src->size();
+}
+
+void ByteBuffer::put_bytes(uint8_t* src_buff, uint32_t len) {
+  if (wpos + len > capacity()) {
+    grow(capacity() * 2 + len);
+  }
+
+  for (int i = 0; i < len; ++i) {
+    buff[wpos] = src_buff[i];
+    wpos++;
+  }
 }
 
 }  // namespace norodb

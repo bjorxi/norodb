@@ -39,7 +39,7 @@ class ByteBuffer {
 
   uint8_t get();
   uint8_t get(uint32_t index);
-  void get_bytes(uint8_t* buf, uint32_t len);
+  void get_bytes(uint8_t* dest_buff, uint32_t len);
   char get_char();
   char get_char(uint32_t index);  // Absolute
   double get_double();
@@ -56,7 +56,7 @@ class ByteBuffer {
   void put(ByteBuffer* src);
   void put(uint8_t b);
   void put(uint8_t b, uint32_t index);
-  void put_bytes(uint8_t* b, uint32_t len);
+  void put_bytes(uint8_t* src_buff, uint32_t len);
   void put_bytes(uint8_t* b, uint32_t len, uint32_t index);
   void put_char(char value);
   void put_char(char value, uint32_t index);

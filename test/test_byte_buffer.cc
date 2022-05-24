@@ -71,6 +71,16 @@ TEST(ByteBufferPut, PutWillGrow) {
   ASSERT_EQ(buff.to_string(), "ab");
 }
 
+TEST(ByteBufferPut, PutBytes) {
+  norodb::ByteBuffer buff;
+  uint8_t src_buff[] = {'h', 'e', 'l', 'l', 'o'};
+  uint32_t len = 5;
+  buff.put_bytes(src_buff, len);
+
+  ASSERT_EQ(buff.size(), 5);
+  ASSERT_EQ(buff.to_string(), "hello");
+}
+
 int main(int argc, char** argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
