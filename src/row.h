@@ -50,6 +50,8 @@ class RowHeader {
   uint64_t get_seq_num() { return seq_num; }
   void set_version(uint8_t v) { version = v; }
   uint8_t get_version() { return version; }
+  uint8_t get_key_size() {return key_size;}
+  uint32_t get_val_size() {return val_size;}
 };
 
 class Row {
