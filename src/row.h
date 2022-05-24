@@ -23,8 +23,7 @@ class RowHeader {
   static const int VALUE_SIZE_OFFSET = 10;
   static const int SEQUENCE_NUMBER_OFFSET = 14;
 
-  static const int HEADER_SIZE = 18;
-  static const int CHECKSUM_SIZE = 4;
+
 
   uint64_t check_sum;
   uint8_t version;
@@ -33,6 +32,9 @@ class RowHeader {
   uint64_t seq_num;
 
  public:
+  static const int HEADER_SIZE = 18;
+  static const int CHECKSUM_SIZE = 4;
+
   RowHeader(uint64_t check_sum, uint8_t version, uint8_t key_size, uint32_t val_size,
             uint64_t seq_num)
       : check_sum(check_sum),
