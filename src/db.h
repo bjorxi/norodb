@@ -12,6 +12,7 @@
 #include "db_options.h"
 #include "row.h"
 #include "status.h"
+#include "index.h"
 
 namespace norodb {
 
@@ -19,6 +20,7 @@ class DB {
   std::string directory;
   DBOptions db_options;
   DBDirectory db_dir;
+  DBIndex index;
   std::unique_ptr<DBFile> curr_data_file;  // current data file
   std::mutex write_lock;
   uint64_t seq_num = 0;  // sequence number
@@ -52,8 +54,9 @@ class DB {
    * the current data file will be closed and a new data file will be opened
    *
    * @param row - a row to be written
+   * @return offset at which a row was written
    */
-  void write_row(Row& row);
+  uint64_t write_row(Row& row);
   /**
    * Flushes and closes the current data file and cretes a new one
    */
