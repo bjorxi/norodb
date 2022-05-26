@@ -23,8 +23,6 @@ class RowHeader {
   static const int VALUE_SIZE_OFFSET = 10;
   static const int SEQUENCE_NUMBER_OFFSET = 14;
 
-
-
   uint64_t check_sum;
   uint8_t version;
   uint8_t key_size;
@@ -32,7 +30,7 @@ class RowHeader {
   uint64_t seq_num;
 
  public:
-  static const int HEADER_SIZE = 18;
+  static const int HEADER_SIZE = 22;
   static const int CHECKSUM_SIZE = 4;
 
   RowHeader(uint64_t check_sum, uint8_t version, uint8_t key_size, uint32_t val_size,
@@ -65,12 +63,15 @@ class Row {
   ~Row();
 
   ByteBuffer* serialize();
-  static Row* deserialize(ByteBuffer& buffer);
+  static Row* deserialize(ByteBuffer& buffer, uint8_t key_size, uint32_t val_size);
   uint32_t size() { return _size; };
   void set_seq_num(uint64_t num) { header->set_seq_num(num); }
   uint64_t get_seq_num() { return header->get_seq_num(); }
   void set_version(uint8_t num) { header->set_version(num); }
   uint8_t get_version() { return header->get_version(); }
+  void set_header(RowHeader* h) {header = h;}
+  ByteBuffer* get_key() {return key;}
+  ByteBuffer* get_val() {return val;}
 };
 
 }  // namespace norodb

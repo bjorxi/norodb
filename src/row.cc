@@ -46,20 +46,25 @@ ByteBuffer* Row::serialize() {
   buff->put(header->serialize());
   buff->put(key);
   buff->put(val);
-  std::cout << "Row::buff size: " << buff->size() << std::endl;
   return buff;
 }
 
-Row* Row::deserialize(ByteBuffer& buffer) {
-  ByteBuffer* key;
-  ByteBuffer* val;
+Row* Row::deserialize(ByteBuffer& buffer, uint8_t key_size, uint32_t val_size) {
+  uint8_t key_buff[key_size];
+  uint8_t val_buff[val_size];
+
+  buffer.get_bytes(key_buff, key_size);
+  buffer.get_bytes(key_buff, key_size);
+  auto key = new ByteBuffer(key_buff, key_size);
+  auto val = new ByteBuffer(val_buff, val_size);
+
   return new Row(key, val);
 }
 
 Row::~Row() {
   // delete key;
   // delete val;
-  delete header;
+  // delete header;
 }
 
 }  // namespace norodb
