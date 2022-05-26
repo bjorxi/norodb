@@ -38,7 +38,7 @@ class DBFile {
    *
    * @param row - a porinter to a Row object
    */
-  void write_row(Row& row);
+  uint64_t write_row(Row& row);
 
   /**
    * Reads `size` amount of bytes from the `offset` location in a file
@@ -49,6 +49,8 @@ class DBFile {
    * @return a pointer to a ByteBuffer object filled with read data
    */
   ByteBuffer* read(uint64_t offset, uint64_t size);
+
+  void read(uint64_t offset, ByteBuffer& dest_buff);
 
   /**
    * Reads from a file at the location `offset` and deserializes read bytes to a

@@ -31,12 +31,13 @@ void DBFile::write(ByteBuffer& buff) {
   }
 }
 
-void DBFile::write_row(Row& row) {
+uint64_t DBFile::write_row(Row& row) {
   write(*(row.serialize()));
   uint32_t row_size = row.size();
-  uint64_t rowOffSet = write_offset;  // save curr offset to have it in the index entry
+  uint64_t row_offset = write_offset;  // save curr offset to have it in the index entry
   write_offset += row_size;
-  // add an index entry
+
+  return row_offset;
 }
 
 ByteBuffer* DBFile::read(uint64_t offset, uint64_t size) {
@@ -46,6 +47,28 @@ ByteBuffer* DBFile::read(uint64_t offset, uint64_t size) {
   auto buff = new ByteBuffer(_buff);
   delete _buff;
   return buff;
+}
+
+void DBFile::read(uint64_t offset, ByteBuffer& dest_buff) {
+  // char* _buff = new char[dest_buff.size()];
+  file.seekg(offset);
+  file.read(dest_buff.ptr(), dest_buff.size());
+}
+
+Row* DBFile::read_row(uint64_t offset) {
+  uint64_t temp_offset = offset;
+  auto header_buff =  ByteBuffer(RowHeader::HEADER_SIZE);
+  read(temp_offset, header_buff);
+  std::cout << "Header: " << header_buff.to_string() << std::endl;
+  auto header = RowHeader::deserialize(header_buff);
+  temp_offset += RowHeader::HEADER_SIZE;
+  auto row_buff = ByteBuffer(header->get_key_size() + header->get_val_size());
+  std::cout << "Row: " << row_buff.to_string() << std::endl;
+  read(temp_offset, row_buff);
+  auto row = Row::deserialize(row_buff, header->get_key_size(), header->get_val_size());
+  row->set_header(header);
+
+  return row;
 }
 
 }  // namespace norodb
