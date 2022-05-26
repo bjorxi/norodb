@@ -9,8 +9,8 @@ all: test_byte_buffer test_db_directory
 
 test_byte_buffer:
 	@echo "\n>>>> TESTING BYTE BUFFER <<<<\n"
-	@$(CC) $(CFLAGS) $(INCLUDE) -c test_byte_buffer.cc
-	@$(CC) $(CFLAGS) -o test_byte_buffer test_byte_buffer.o $(LINK) $(LIBS)
+	$(CC) $(CFLAGS) $(INCLUDE) -c test_byte_buffer.cc
+	$(CC) $(CFLAGS) -o test_byte_buffer test_byte_buffer.o $(LINK) $(LIBS)
 	@./test_byte_buffer
 
 

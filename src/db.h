@@ -45,7 +45,7 @@ class DB {
    *
    * @param key - a ByteBuffer that represents a key
    */
-  Status get(const ByteBuffer& key);
+  Status get(ByteBuffer& key);
   Status remove(const ByteBuffer& key);
 
   /**
