@@ -19,3 +19,8 @@ test_db_directory:
 	@$(CC) $(CFLAGS) $(INCLUDE) -c test_db_directory.cc
 	@$(CC) $(CFLAGS) -o test_db_directory test_db_directory.o $(LINK) $(LIBS)
 	@./test_db_directory
+test_index:
+	@echo "\n>>>> TESTING INDEX <<<<\n"
+	@$(CC) $(CFLAGS) $(INCLUDE) -c test_index.cc
+	@$(CC) $(CFLAGS) -o test_index test_index.o $(LINK) $(LIBS)
+	@./test_index
