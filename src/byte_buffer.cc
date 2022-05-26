@@ -17,6 +17,15 @@ ByteBuffer::ByteBuffer(std::string src) {
   }
 }
 
+ByteBuffer::ByteBuffer(uint8_t* src_buff, uint32_t len) {
+  buff = std::vector<uint8_t>(len);
+
+  for (int i=0; i < len; ++i) {
+    put(src_buff[i]);
+  }
+}
+
+
 std::string ByteBuffer::to_string() {
   std::stringstream s;
 

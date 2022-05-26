@@ -20,6 +20,7 @@ class ByteBuffer {
   ByteBuffer();
   ByteBuffer(uint32_t size);
   ByteBuffer(std::string src);
+  ByteBuffer(uint8_t* src_buff, uint32_t len);
 
   void clear() {
     wpos = 0;
