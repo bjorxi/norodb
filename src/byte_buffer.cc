@@ -83,7 +83,7 @@ uint64_t ByteBuffer::get_long() {
 }
 
 void ByteBuffer::get_bytes(uint8_t* dest_buff, uint32_t len) {
-  assert(rpos+len < size());
+  assert(rpos+len <= size());
   for (int i=0; i < len; ++i) {
     dest_buff[i] = buff[rpos];
     rpos++;

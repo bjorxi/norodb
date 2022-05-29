@@ -49,6 +49,14 @@ ByteBuffer* DBFile::read(uint64_t offset, uint64_t size) {
   return buff;
 }
 
+void DBFile::read(uint64_t offset, uint64_t size, ByteBuffer& dest_buff) {
+  char* _buff = new char[size];
+  file.seekg(offset);
+  file.read(_buff, size);
+  uint8_t* _ptr = reinterpret_cast<uint8_t*>(_buff);
+  dest_buff.put_bytes(_ptr, size);
+}
+
 void DBFile::read(uint64_t offset, ByteBuffer& dest_buff) {
   // char* _buff = new char[dest_buff.size()];
   file.seekg(offset);
@@ -57,14 +65,12 @@ void DBFile::read(uint64_t offset, ByteBuffer& dest_buff) {
 
 Row* DBFile::read_row(uint64_t offset) {
   uint64_t temp_offset = offset;
-  auto header_buff =  ByteBuffer(RowHeader::HEADER_SIZE);
-  read(temp_offset, header_buff);
-  std::cout << "Header: " << header_buff.to_string() << std::endl;
+  auto header_buff = ByteBuffer(RowHeader::HEADER_SIZE);
+  read(temp_offset, RowHeader::HEADER_SIZE, header_buff);
   auto header = RowHeader::deserialize(header_buff);
   temp_offset += RowHeader::HEADER_SIZE;
   auto row_buff = ByteBuffer(header->get_key_size() + header->get_val_size());
-  std::cout << "Row: " << row_buff.to_string() << std::endl;
-  read(temp_offset, row_buff);
+  read(temp_offset, header->get_key_size() + header->get_val_size(), row_buff);
   auto row = Row::deserialize(row_buff, header->get_key_size(), header->get_val_size());
   row->set_header(header);
 

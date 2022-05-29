@@ -29,9 +29,7 @@ Status DB::put(ByteBuffer& key, ByteBuffer& val) {
 
 Status DB::get(ByteBuffer& key) {
   auto index_entry = index.get(key);
-  std::cout << "Index: " << index_entry.get_val_offset() << std::endl;
   auto row = curr_data_file->read_row(index_entry.get_val_offset());
-  std::cout << row->get_key()->to_string() << ": " << row->get_val()->to_string() << std::endl;
 
   return Status(true);
 }

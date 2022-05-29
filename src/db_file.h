@@ -49,6 +49,7 @@ class DBFile {
    * @return a pointer to a ByteBuffer object filled with read data
    */
   ByteBuffer* read(uint64_t offset, uint64_t size);
+  void read(uint64_t offset, uint64_t size, ByteBuffer& dest_buff);
 
   void read(uint64_t offset, ByteBuffer& dest_buff);
 

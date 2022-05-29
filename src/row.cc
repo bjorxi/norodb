@@ -54,7 +54,7 @@ Row* Row::deserialize(ByteBuffer& buffer, uint8_t key_size, uint32_t val_size) {
   uint8_t val_buff[val_size];
 
   buffer.get_bytes(key_buff, key_size);
-  buffer.get_bytes(key_buff, key_size);
+  buffer.get_bytes(val_buff, val_size);
   auto key = new ByteBuffer(key_buff, key_size);
   auto val = new ByteBuffer(val_buff, val_size);
 
