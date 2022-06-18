@@ -34,18 +34,18 @@ RowHeader* RowHeader::deserialize(ByteBuffer& buff) {
   return new RowHeader(buff.get_long(), buff.get(), buff.get(), buff.get_int(), buff.get_long());
 }
 
-Row::Row(ByteBuffer* key, ByteBuffer* val) {
+Row::Row(ByteBuffer key, ByteBuffer val) {
   this->key = key;
   this->val = val;
-  header = new RowHeader(0, 0, key->size(), val->size(), 0);
-  _size = key->size() + val->size() + header->size();
+  this->header = RowHeader(0, 0, key.size(), val.size(), 0);
+  _size = key.size() + val.size() + header.size();
 }
 
 ByteBuffer* Row::serialize() {
   auto buff = new ByteBuffer();
-  buff->put(header->serialize());
-  buff->put(key);
-  buff->put(val);
+  buff->put(header.serialize());
+  buff->put(&key);
+  buff->put(&val);
   return buff;
 }
 
@@ -55,8 +55,8 @@ Row* Row::deserialize(ByteBuffer& buffer, uint8_t key_size, uint32_t val_size) {
 
   buffer.get_bytes(key_buff, key_size);
   buffer.get_bytes(val_buff, val_size);
-  auto key = new ByteBuffer(key_buff, key_size);
-  auto val = new ByteBuffer(val_buff, val_size);
+  ByteBuffer key(key_buff, key_size);
+  ByteBuffer val(val_buff, val_size);
 
   return new Row(key, val);
 }

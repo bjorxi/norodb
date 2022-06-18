@@ -2,8 +2,8 @@
 #define NORO_DB_ROW_H_
 
 #include <stddef.h>
-
 #include <cstdint>
+#include <memory>
 
 #include "byte_buffer.h"
 
@@ -40,6 +40,7 @@ class RowHeader {
         key_size(key_size),
         val_size(val_size),
         seq_num(seq_num){};
+  RowHeader() {};
   ByteBuffer* serialize();
   static RowHeader* deserialize(ByteBuffer& buffer);
   std::string to_string();
@@ -53,25 +54,25 @@ class RowHeader {
 };
 
 class Row {
-  ByteBuffer* key;
-  ByteBuffer* val;
-  RowHeader* header;
+  ByteBuffer key;
+  ByteBuffer val;
+  RowHeader header;
   uint32_t _size;
 
  public:
-  Row(ByteBuffer* key, ByteBuffer* val);
+  Row(ByteBuffer key, ByteBuffer val);
   ~Row();
 
   ByteBuffer* serialize();
   static Row* deserialize(ByteBuffer& buffer, uint8_t key_size, uint32_t val_size);
   uint32_t size() { return _size; };
-  void set_seq_num(uint64_t num) { header->set_seq_num(num); }
-  uint64_t get_seq_num() { return header->get_seq_num(); }
-  void set_version(uint8_t num) { header->set_version(num); }
-  uint8_t get_version() { return header->get_version(); }
-  void set_header(RowHeader* h) {header = h;}
-  ByteBuffer* get_key() {return key;}
-  ByteBuffer* get_val() {return val;}
+  void set_seq_num(uint64_t num) { header.set_seq_num(num); }
+  uint64_t get_seq_num() { return header.get_seq_num(); }
+  void set_version(uint8_t num) { header.set_version(num); }
+  uint8_t get_version() { return header.get_version(); }
+  void set_header(RowHeader h) {header = h;}
+  ByteBuffer get_key() {return key;}
+  ByteBuffer get_val() {return val;}
 };
 
 }  // namespace norodb

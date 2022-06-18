@@ -15,7 +15,7 @@ Status DB::open() {
 Status DB::put(ByteBuffer& key, ByteBuffer& val) {
   write_lock.lock();
   seq_num++;
-  Row row(&key, &val);
+  Row row(key, val);
   row.set_seq_num(seq_num);
   row.set_version(DATA_FILE_VERSION);
   uint64_t row_offset = write_row(row);

@@ -72,7 +72,7 @@ Row* DBFile::read_row(uint64_t offset) {
   auto row_buff = ByteBuffer(header->get_key_size() + header->get_val_size());
   read(temp_offset, header->get_key_size() + header->get_val_size(), row_buff);
   auto row = Row::deserialize(row_buff, header->get_key_size(), header->get_val_size());
-  row->set_header(header);
+  row->set_header(*header);
 
   return row;
 }
