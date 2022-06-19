@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 #include <string>
+#include <memory>
 
 #include "byte_buffer.h"
 
@@ -23,6 +24,9 @@ class IndexEntry {
     uint64_t get_val_offset() {return val_offset;}
     uint32_t get_val_size() {return val_size;}
     uint64_t get_seq_num() {return seq_num;}
+
+    std::shared_ptr<ByteBuffer> serialize();
+    static std::shared_ptr<IndexEntry> deserialize(ByteBuffer& buffer);
 
 };
 

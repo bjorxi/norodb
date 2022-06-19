@@ -4,7 +4,7 @@ INCLUDE ?= -I../src -I./third_party/goodletest/googletest/include
 LIBS ?= ../norodb.a third_party/googletest/lib/libgtest.a
 LINK ?= -L..
 
-all: test_byte_buffer test_db_directory
+all: test_byte_buffer test_db_directory test_index
 	@echo "\n>>>> ALL DONE! <<<<\n"
 
 test_byte_buffer:
