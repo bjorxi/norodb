@@ -50,7 +50,7 @@ void DB::roll_over_current_data_file() {
     curr_data_file->flush();
   }
 
-  curr_data_file = std::unique_ptr<DBFile>(new DBFile(get_next_file_id(), db_dir, db_options));
+  curr_data_file = std::unique_ptr<DataFile>(new DataFile(get_next_file_id(), db_dir, db_options));
 }
 
 }  // namespace norodb

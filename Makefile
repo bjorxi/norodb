@@ -2,8 +2,8 @@ CC = g++
 CFLAGS = -std=c++17 -lstdc++fs
 OBJECTS =
 
-build: db.o db_directory.o row.o coding.o byte_buffer.o db_file.o index.o
-	ar rcs norodb.a db.o db_directory.o row.o coding.o byte_buffer.o db_file.o index.o
+build: db.o db_directory.o row.o coding.o byte_buffer.o db_file.o index.o data_file.o index_file.o index_file_entry.o index_entry.o
+	ar rcs norodb.a db.o db_directory.o row.o coding.o byte_buffer.o db_file.o index.o data_file.o index_file.o index_file_entry.o index_entry.o
 
 db_directory.o:
 	$(CC) $(CFLAGS) -c src/db_directory.cc
@@ -26,6 +26,17 @@ db_file.o:
 index.o:
 	$(CC)  $(CFLAGS) -c  src/index.cc
 
+data_file.o:
+	$(CC) $(CFLAGS) -c src/data_file.cc
+
+index_file.o:
+	$(CC) $(CFLAGS) -c src/index_file.cc
+
+index_file_entry.o:
+	$(CC) $(CFLAGS) -c src/index_file_entry.cc
+
+index_entry.o:
+	$(CC) $(CFLAGS) -c src/index_entry.cc
 
 test: build
 	@echo "\n\n >>>> RUNNING TESTS <<<<\n\n"

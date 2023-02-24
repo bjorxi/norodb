@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "index.h"
+#include "index_entry.h"
 #include "byte_buffer.h"
 
 TEST(Index, PutGet) {

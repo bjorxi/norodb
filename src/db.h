@@ -10,6 +10,7 @@
 #include "db_directory.h"
 #include "db_file.h"
 #include "db_options.h"
+#include "data_file.h"
 #include "row.h"
 #include "status.h"
 #include "index.h"
@@ -21,7 +22,7 @@ class DB {
   DBOptions db_options;
   DBDirectory db_dir;
   DBIndex index;
-  std::unique_ptr<DBFile> curr_data_file;  // current data file
+  std::unique_ptr<DataFile> curr_data_file;  // current data file
   std::mutex write_lock;
   uint64_t seq_num = 0;  // sequence number
   std::atomic<uint32_t> file_id = 0;

@@ -1,23 +1,30 @@
 #include "index.h"
 
 namespace norodb {
-std::shared_ptr<ByteBuffer> IndexEntry::serialize() {
-  std::shared_ptr<ByteBuffer>  buffer(new ByteBuffer());
 
-  buffer->put_int(file_id);
-  buffer->put_long(val_offset);
-  buffer->put_int(val_size);
-  buffer->put_long(seq_num);
-
-  return buffer;
+void DBIndex::put(ByteBuffer& key, IndexEntry& entry) {
+  write_lock.lock();
+  IndexFileEntry ife(key, entry);
+  write_entry(*ife.serialize());
+  data[key.to_string()] = entry;
+  write_lock.unlock();
 }
 
-std::shared_ptr<IndexEntry> IndexEntry::deserialize(ByteBuffer& buffer) {
-  std::shared_ptr<IndexEntry> entry(new IndexEntry(
-    buffer.get_int(), buffer.get_long(), buffer.get_int(), buffer.get_long()
-  ));
+void DBIndex::write_entry(ByteBuffer& buff) {
+  if (!curr_index_file or
+      curr_index_file->get_write_offset() + buff.size() > db_options.MAX_FILE_SIZE) {
+    roll_over_current_index_file();
+  }
 
-  return entry;
+  curr_index_file->write(buff);
+}
+
+void DBIndex::roll_over_current_index_file() {
+  if (curr_index_file) {
+    curr_index_file->flush();
+  }
+
+  curr_index_file = std::unique_ptr<IndexFile>(new IndexFile(get_next_file_id(), db_dir, db_options));
 }
 
 } // namespace norodb

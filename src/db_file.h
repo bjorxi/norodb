@@ -5,26 +5,29 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <filesystem>
+#include <iostream>
 
 #include "byte_buffer.h"
 #include "db_directory.h"
 #include "db_options.h"
-#include "row.h"
+
+namespace fs = std::filesystem;
 
 namespace norodb {
 
 enum FileType { DATA_FILE, INDEX_FILE, COMPACTED_FILE };
 
 class DBFile {
+ public:
+  DBDirectory db_dir;
+  DBOptions db_options;
   uint64_t write_offset = 0;
   uint32_t file_id;
   std::fstream file;
 
-  DBDirectory db_dir;
-  DBOptions db_options;
-
- public:
-  DBFile(uint32_t file_id, DBDirectory& dir, DBOptions& options);
+  DBFile(uint32_t file_id, DBDirectory& dir, DBOptions& options)
+    : file_id(file_id), db_dir(dir), db_options(options) {};
 
   /**
    * Writes a ByteByffer object to a file
@@ -32,13 +35,6 @@ class DBFile {
    * @param buff - a Bytebuffer object
    */
   void write(ByteBuffer& buff);
-
-  /**
-   * Writes a row to a file
-   *
-   * @param row - a porinter to a Row object
-   */
-  uint64_t write_row(Row& row);
 
   /**
    * Reads `size` amount of bytes from the `offset` location in a file
@@ -54,15 +50,6 @@ class DBFile {
   void read(uint64_t offset, ByteBuffer& dest_buff);
 
   /**
-   * Reads from a file at the location `offset` and deserializes read bytes to a
-   * Row object
-   *
-   * @param offset - location from which a read is done
-   * @return a pointer to a Row object
-   */
-  Row* read_row(uint64_t offset);
-
-  /**
    * Forces to write the data that is still in the stream/os buffers to the disk
    */
   void flush() { file.flush(); }
@@ -74,6 +61,9 @@ class DBFile {
   void remove();
 
   uint64_t get_write_offset() { return write_offset; };
+
+  void set_file_id(uint32_t fid) {file_id = fid;};
+
 };
 
 }  // namespace norodb
