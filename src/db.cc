@@ -27,10 +27,16 @@ Status DB::put(ByteBuffer& key, ByteBuffer& val) {
   return Status(true);
 }
 
-Status DB::get(ByteBuffer& key) {
+Status DB::get(ByteBuffer& key, ByteBuffer& val) {
   auto index_entry = index.get(key);
-  auto row = curr_data_file->read_row(index_entry.get_val_offset());
 
+  if (index_entry.get_file_id() == -1) {
+    return Status(false);
+  }
+
+  auto row = curr_data_file->read_row(index_entry.get_val_offset());
+  auto _val = row->get_val();
+  val.put(&_val);
   return Status(true);
 }
 

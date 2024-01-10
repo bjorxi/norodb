@@ -45,8 +45,9 @@ class DB {
    * is found it's returned, otherwise ... #TODO fix this doc
    *
    * @param key - a ByteBuffer that represents a key
+   * @param val - a ByteBuffer that will be used to write the foud value.
    */
-  Status get(ByteBuffer& key);
+  Status get(ByteBuffer& key, ByteBuffer& val);
   Status remove(const ByteBuffer& key);
 
   /**

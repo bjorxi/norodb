@@ -26,10 +26,17 @@ class DBIndex {
   std::atomic<uint64_t> index_entry_id = 0;
 
   public:
+    static IndexEntry dummy;
+
     void put(ByteBuffer& key, IndexEntry& entry);
 
     IndexEntry get(ByteBuffer& key) {
-      return data[key.to_string()];
+      auto _key = key.to_string();
+      if (data.find(_key) != data.end()) {
+        return data[_key];
+      }
+
+      return dummy;
     }
 
     void remove(ByteBuffer& key);

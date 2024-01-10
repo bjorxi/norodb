@@ -2,6 +2,8 @@
 
 namespace norodb {
 
+IndexEntry DBIndex::dummy(-1,-1,-1,-1);
+
 void DBIndex::put(ByteBuffer& key, IndexEntry& entry) {
   write_lock.lock();
   IndexFileEntry ife(key, entry);

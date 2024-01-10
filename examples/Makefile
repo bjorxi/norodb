@@ -11,3 +11,4 @@ all: clean
 
 clean:
 	rm -rf norodb || true
+	rm -rf *.o || true

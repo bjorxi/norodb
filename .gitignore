@@ -193,6 +193,7 @@ cython_debug/
 
 # Other
 examples/main
+examples/*.index
 *.data
 *.datac
 test/*
