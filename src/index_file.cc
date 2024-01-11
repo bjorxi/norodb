@@ -3,7 +3,7 @@
 namespace norodb {
 
 IndexFile::IndexFile(uint32_t file_id, DBDirectory& dir, DBOptions& options)
-    : DBFile{file_id, db_dir, options} {
+    : DBFile{file_id, dir, options} {
   std::stringstream fname;
   fname << file_id << ".index";
 

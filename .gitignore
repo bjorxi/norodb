@@ -193,6 +193,8 @@ cython_debug/
 
 # Other
 examples/main
+examples/norodb/
+examples/*.data
 examples/*.index
 *.data
 *.datac

@@ -17,20 +17,25 @@ int main() {
 
   db.put(key, val);
 
-  // norodb::ByteBuffer key2("key2");
-  // norodb::ByteBuffer val2("val2");
-  //
-  // db.put(key2, val2);
-  //
-  // norodb::ByteBuffer key3("hello");
-  // norodb::ByteBuffer val3("world");
-  //
-  // db.put(key3, val3);
-  //
-  // norodb::ByteBuffer key4("key");
-  // norodb::ByteBuffer val4("noval");
-  //
-  // db.put(key4, val4);
+  norodb::ByteBuffer key2("key2");
+  norodb::ByteBuffer val2("val2");
+
+  db.put(key2, val2);
+
+  norodb::ByteBuffer key3("hello");
+  norodb::ByteBuffer val3("world");
+
+  db.put(key3, val3);
+
+  norodb::ByteBuffer key4("key");
+  norodb::ByteBuffer val4("noval");
+
+  db.put(key4, val4);
+
+  norodb::ByteBuffer res2;
+  db.get(key2, res2);
+
+  std::cout << "Key: " << key2.to_string() << "; Value: " << res2.to_string() << std::endl;
 
   norodb::ByteBuffer k("hello1111");
   norodb::ByteBuffer res;
