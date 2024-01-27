@@ -5,6 +5,7 @@
 #include <memory>
 #include <mutex>
 #include <string>
+#include <filesystem>
 
 #include "byte_buffer.h"
 #include "db_directory.h"
@@ -14,6 +15,9 @@
 #include "row.h"
 #include "status.h"
 #include "index.h"
+#include "index_file.h"
+
+namespace fs = std::filesystem;
 
 namespace norodb {
 
@@ -26,6 +30,19 @@ class DB {
   std::mutex write_lock;
   uint64_t seq_num = 0;  // sequence number
   std::atomic<uint32_t> file_id = 0;
+  std::unordered_map<std::string, std::unique_ptr<DataFile>> data_files_map;
+
+  /**
+   * Goes over existing data files and builds a map of path => DataFile key value pairs.
+   *
+   * @return max file id found
+   */
+  uint32_t build_data_files_map();
+
+  /**
+   * Builds and index from the index files
+   */
+  void build_index();
 
  public:
   DB(const std::string& dir, const DBOptions& opts) : directory(dir), db_options(opts){};

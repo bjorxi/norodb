@@ -17,6 +17,7 @@ DBDirectory::DBDirectory(const std::string& p) {
 }
 
 DBDirectory::DBDirectory(fs::path dir) {
+
   db_dir = dir;
   data_files_dir = dir / "data";
   index_files_dir = dir / "index";
@@ -32,6 +33,30 @@ void DBDirectory::create_directories() {
   if (!fs::exists(data_files_dir)) fs::create_directory(data_files_dir);
 
   if (!fs::exists(index_files_dir)) fs::create_directory(index_files_dir);
+}
+
+std::vector<fs::path> DBDirectory::list_index_files() {
+  std::vector<fs::path> res;
+
+  std::cout << "DBDirectory::list_index_files " << index_files_dir << std::endl;
+  for (const auto& _file : fs::directory_iterator(index_files_dir)) {
+    std::cout << "DBDirectory::list_index_files::item " << _file.path() << std::endl;
+    res.push_back(_file.path());
+  }
+
+  return res;
+}
+
+std::vector<fs::path> DBDirectory::list_data_files() {
+  std::vector<fs::path> res;
+
+  std::cout << "DBDirectory::list_data_files " << data_files_dir << std::endl;
+  for (const auto& _file : fs::directory_iterator(data_files_dir)) {
+    std::cout << "DBDirectory::list_data_files::item " << _file.path() << std::endl;
+    res.push_back(_file.path());
+  }
+
+  return res;
 }
 
 }  // namespace norodb

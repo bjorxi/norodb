@@ -13,7 +13,13 @@ IndexFile::IndexFile(uint32_t file_id, DBDirectory& dir, DBOptions& options)
   file.open(index_file_path.string(),
             std::ios::in | std::ios::out | std::ios::app | std::ios::ate | std::ios::binary);
 }
-//
+
+IndexFile::IndexFile(fs::path fpath, DBDirectory& dir, DBOptions& options)
+  : DBFile{0, dir, options} {
+  file.open(fpath,
+            std::ios::in | std::ios::out | std::ios::app | std::ios::binary);
+}
+
 // uint64_t IndexFile::write_entry(Row& row) {
 //   write(*(row.serialize()));
 //   uint32_t row_size = row.size();

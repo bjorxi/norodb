@@ -9,7 +9,7 @@
 namespace norodb {
 
 class IndexFileEntry {
-  static const int HEADER_SIZE = 22;
+
   static const int INDEX_ENTRY_FILE_SIZE = 46;
   static const int CHECKSUM_OFFSET = 0;
   static const int VERSION_OFFSET = 8;
@@ -27,6 +27,7 @@ class IndexFileEntry {
   IndexEntry entry;
 
   public:
+    static const int HEADER_SIZE = 22;
     IndexFileEntry(uint64_t check_sum, uint8_t version, uint8_t key_size, uint32_t entry_size,
             uint64_t seq_num)
       : check_sum(check_sum),

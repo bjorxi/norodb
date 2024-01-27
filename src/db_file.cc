@@ -36,7 +36,7 @@ ByteBuffer* DBFile::read(uint64_t offset, uint64_t size) {
   file.seekg(offset);
   file.read(_buff, size);
   auto buff = new ByteBuffer(_buff);
-  delete _buff;
+  delete[] _buff;
   return buff;
 }
 
