@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -std=c++17 -lstdc++fs
+CFLAGS = -std=c++20
 OBJECTS =
 
 build: db.o db_directory.o row.o coding.o byte_buffer.o db_file.o index.o data_file.o index_file.o index_file_entry.o index_entry.o
