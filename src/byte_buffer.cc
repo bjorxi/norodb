@@ -46,7 +46,8 @@ uint8_t ByteBuffer::get() {
   uint8_t val = buff[rpos];
 
   rpos += 1;
-  return static_cast<int>(val);
+  // return static_cast<int>(val);
+  return val;
 }
 
 uint8_t ByteBuffer::get(uint32_t pos) {

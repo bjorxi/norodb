@@ -26,11 +26,11 @@ class DB {
   DBOptions db_options;
   DBDirectory db_dir;
   DBIndex index;
-  std::unique_ptr<DataFile> curr_data_file;  // current data file
+  std::shared_ptr<DataFile> curr_data_file;  // current data file
   std::mutex write_lock;
   uint64_t seq_num = 0;  // sequence number
   std::atomic<uint32_t> file_id = 0;
-  std::unordered_map<std::string, std::unique_ptr<DataFile>> data_files_map;
+  std::unordered_map<uint32_t, std::shared_ptr<DataFile>> data_files_map;
 
   /**
    * Goes over existing data files and builds a map of path => DataFile key value pairs.

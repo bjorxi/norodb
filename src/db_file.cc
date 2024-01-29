@@ -3,24 +3,8 @@
 #include <cstring>
 
 namespace norodb {
-//
-// DBFile::DBFile(uint32_t file_id, DBDirectory& dir, DBOptions& options)
-//     : file_id(file_id), db_dir(dir), db_options(options) {
-//   std::stringstream fname;
-//   fname << file_id << ".data";
-//
-//   fs::path data_file_path = db_dir.get_data_dir() / fname.str();
-//   std::cout << "Opening a file, path: " << data_file_path << std::endl;
-//   file.open(data_file_path.string(),
-//             std::ios::in | std::ios::out | std::ios::app | std::ios::ate | std::ios::binary);
-// }
-
 void DBFile::write(ByteBuffer& buff) {
-  int written;
-
-  // std::cout << "Writing a buffer: " <<  buff.to_string() << std::endl;
   file.write(buff.ptr(), buff.size());
-
 
   if (db_options.FLUSH_ON_WRITE) {
     file.flush();
@@ -49,7 +33,6 @@ void DBFile::read(uint64_t offset, uint64_t size, ByteBuffer& dest_buff) {
 }
 
 void DBFile::read(uint64_t offset, ByteBuffer& dest_buff) {
-  // char* _buff = new char[dest_buff.size()];
   file.seekg(offset);
   file.read(dest_buff.ptr(), dest_buff.size());
 }

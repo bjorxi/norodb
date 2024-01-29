@@ -6,17 +6,20 @@
 
 namespace norodb {
 
-// build a dict {filename => fileobj} and open those files; and find and set max_file_id
-// load metadata from a metadafile
+
 // build index
+
+// The following actions will be added later
+// load metadata from a metadafile
 // start the compaction process
 // start the compaction process for tombsones
 Status DB::open() {
+  std::cout << "[DB::open] opening a db" << std::endl;
   fs::path p("norodb");
   db_dir = DBDirectory(p);
 
   file_id = build_data_files_map();
-  std::cout << "DB::open file_id " << file_id << std::endl;
+  build_index();
 
   return Status(true);
 }
@@ -38,12 +41,14 @@ Status DB::put(ByteBuffer& key, ByteBuffer& val) {
 
 Status DB::get(ByteBuffer& key, ByteBuffer& val) {
   auto index_entry = index.get(key);
-
-  if (index_entry.get_file_id() == -1) {
+  auto data_file_id = index_entry.get_file_id();
+  std::cout << "[DB::get] key " << key.to_string() << " " <<index_entry << std::endl;
+  if (data_file_id == -1) { // file_id is unsigned can't be -1 =/
     return Status(false);
   }
 
-  auto row = curr_data_file->read_row(index_entry.get_val_offset());
+  // data_files_map[file_name]
+  auto row = data_files_map[data_file_id]->read_row(index_entry.get_val_offset());
   auto _val = row->get_val();
   val.put(&_val);
   return Status(true);
@@ -65,11 +70,14 @@ void DB::roll_over_current_data_file() {
     curr_data_file->flush();
   }
 
-  curr_data_file = std::unique_ptr<DataFile>(new DataFile(get_next_file_id(), db_dir, db_options));
+  auto next_file_id = get_next_file_id();
+  curr_data_file = std::shared_ptr<DataFile>(new DataFile(next_file_id, db_dir, db_options));
+  data_files_map[next_file_id] = curr_data_file;
 }
 
 
 uint32_t DB::build_data_files_map() {
+  std::cout << "[DB::build_data_files_map] - building data files map" << std::endl;
   uint32_t max_file_id = 0;
   auto data_files = db_dir.list_data_files();
 
@@ -77,26 +85,33 @@ uint32_t DB::build_data_files_map() {
     auto file_name = it->filename().string();
     auto file_id_str = file_name.replace(1, file_name.length()-1, "");
     auto file_id = static_cast<uint32_t>(std::stoi(file_id_str));
+    data_files_map[file_id] = std::shared_ptr<DataFile>(new DataFile{file_id, db_dir, db_options});
 
-    max_file_id = std::max(file_id, max_file_id);
-
-    data_files_map[file_name] = std::unique_ptr<DataFile>(new DataFile{file_id, db_dir, db_options});
+    if (file_id > max_file_id) {
+      max_file_id = file_id;
+      // curr_data_file = data_files_map[file_name];
+    }
   }
 
   return max_file_id;
 }
 
 void DB::build_index() {
+  std::cout << "[DB::build_index] - building inxed" << std::endl;
   auto index_files = db_dir.list_index_files();
 
-  std::cout << "DB::open: " << index_files.size() << " index_files found " <<  std::endl;
   for (auto it = begin(index_files); it != end(index_files); ++it) {
-    std::cout << "DB::open::index_files: " << *it << std::endl;
+    std::cout << "[DB::build_index] Reading index file " << *it << std::endl;
+    uint64_t read_offset = 0;
     IndexFile _if{fs::path(*it), db_dir, db_options};
-    ByteBuffer bb;
+    std::cout << "[DB::build_index] Write offset " << _if.write_offset << std::endl;
+    while (read_offset < _if.write_offset) {
+      std::cout << "[DB::build_index] read offset: " << read_offset << std::endl;
+      auto [key_ptr, entry_ptr] = _if.read_entry(read_offset);
 
-    _if.read(0, IndexFileEntry::HEADER_SIZE, bb);
-    std::cout << "header: " << bb.to_string() << std::endl;
+      read_offset += IndexEntryHeader::SIZE + key_ptr->size() + IndexEntry::SIZE;
+      index.put(*key_ptr, *entry_ptr);
+    }
   }
 }
 

@@ -6,13 +6,13 @@
 #include <memory>
 #include <mutex>
 #include <atomic>
+#include <iostream>
 
 #include "byte_buffer.h"
 #include "index_file.h"
 #include "db_directory.h"
 #include "db_options.h"
 #include "index_entry.h"
-#include "index_file_entry.h"
 
 namespace norodb {
 

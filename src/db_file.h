@@ -64,6 +64,12 @@ class DBFile {
 
   void set_file_id(uint32_t fid) {file_id = fid;};
 
+  friend std::ostream& operator<<(std::ostream& os, DBFile& f) {
+    os << "DBFile(file_id=" << f.file_id << "; write_pos=" << f.file.tellp() << ")";
+
+    return os;
+  };
+
 };
 
 }  // namespace norodb
