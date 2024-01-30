@@ -16,7 +16,7 @@ class DBOptions {
    */
   uint32_t FLUSH_DATA_SIZE_BYTES = -1;
 
-  bool FLUSH_ON_WRITE = true;  // if true, buffers will flushed to the dist on every write
+  bool FLUSH_ON_WRITE = true;  // if true, buffers will flushed to the disl after every write
 };
 
 }  // namespace norodb

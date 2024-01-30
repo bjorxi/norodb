@@ -14,11 +14,10 @@ namespace norodb {
 // start the compaction process
 // start the compaction process for tombsones
 Status DB::open() {
-  std::cout << "[DB::open] opening a db" << std::endl;
   fs::path p("norodb");
   db_dir = DBDirectory(p);
 
-  file_id = build_data_files_map();
+  build_data_files_map();
   build_index();
 
   return Status(true);
@@ -42,7 +41,6 @@ Status DB::put(ByteBuffer& key, ByteBuffer& val) {
 Status DB::get(ByteBuffer& key, ByteBuffer& val) {
   auto index_entry = index.get(key);
   auto data_file_id = index_entry.get_file_id();
-  std::cout << "[DB::get] key " << key.to_string() << " " <<index_entry << std::endl;
   if (data_file_id == -1) { // file_id is unsigned can't be -1 =/
     return Status(false);
   }
@@ -75,9 +73,7 @@ void DB::roll_over_current_data_file() {
   data_files_map[next_file_id] = curr_data_file;
 }
 
-
-uint32_t DB::build_data_files_map() {
-  std::cout << "[DB::build_data_files_map] - building data files map" << std::endl;
+void DB::build_data_files_map() {
   uint32_t max_file_id = 0;
   auto data_files = db_dir.list_data_files();
 
@@ -89,24 +85,23 @@ uint32_t DB::build_data_files_map() {
 
     if (file_id > max_file_id) {
       max_file_id = file_id;
-      // curr_data_file = data_files_map[file_name];
     }
   }
 
-  return max_file_id;
+  // file_ids start with 1
+  if (max_file_id > 0) {
+    file_id = max_file_id;
+    curr_data_file = data_files_map[file_id];
+  }
 }
 
 void DB::build_index() {
-  std::cout << "[DB::build_index] - building inxed" << std::endl;
   auto index_files = db_dir.list_index_files();
 
   for (auto it = begin(index_files); it != end(index_files); ++it) {
-    std::cout << "[DB::build_index] Reading index file " << *it << std::endl;
     uint64_t read_offset = 0;
     IndexFile _if{fs::path(*it), db_dir, db_options};
-    std::cout << "[DB::build_index] Write offset " << _if.write_offset << std::endl;
     while (read_offset < _if.write_offset) {
-      std::cout << "[DB::build_index] read offset: " << read_offset << std::endl;
       auto [key_ptr, entry_ptr] = _if.read_entry(read_offset);
 
       read_offset += IndexEntryHeader::SIZE + key_ptr->size() + IndexEntry::SIZE;

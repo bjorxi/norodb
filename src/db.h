@@ -34,10 +34,9 @@ class DB {
 
   /**
    * Goes over existing data files and builds a map of path => DataFile key value pairs.
-   *
-   * @return max file id found
+   * Sets file_id to max found file id
    */
-  uint32_t build_data_files_map();
+  void build_data_files_map();
 
   /**
    * Builds and index from the index files

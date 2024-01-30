@@ -46,7 +46,7 @@ uint8_t ByteBuffer::get() {
   uint8_t val = buff[rpos];
 
   rpos += 1;
-  // return static_cast<int>(val);
+
   return val;
 }
 
@@ -54,7 +54,7 @@ uint8_t ByteBuffer::get(uint32_t pos) {
   // TODO check if pos >= size
   uint8_t val = buff[pos];
 
-  return static_cast<int>(val);
+  return val;
 }
 
 uint32_t ByteBuffer::get_int() {

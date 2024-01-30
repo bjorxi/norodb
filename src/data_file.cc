@@ -9,7 +9,6 @@ DataFile::DataFile(uint32_t file_id, DBDirectory& dir, DBOptions& options)
 
   fs::path data_file_path = db_dir.get_data_dir() / fname.str();
 
-  std::cout << "Opening a file, path: " << data_file_path << std::endl;
   file.open(data_file_path.string(),
             std::ios::in | std::ios::out | std::ios::app | std::ios::ate | std::ios::binary);
 }
